@@ -10,7 +10,6 @@ public class PhoneController {
 	@RequestMapping(value="/goIndex")
 	public String goIndex() {
 		
-		System.out.println("111111111");
 		return "/phone/index";
 	}
 }
