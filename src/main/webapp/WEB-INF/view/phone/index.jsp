@@ -14,7 +14,7 @@
 <script type="text/javascript">
 var interval;
 $(function(){
-	setInterval("moveItemDiv()","3000");
+	//setInterval("moveItemDiv()","3000");
 });
 
 //将列表里的第一项移动到最后一项，实现列表刷新
@@ -55,6 +55,61 @@ function moveItemDiv(){
 		<div class="text_div">电话</div>
 	</div>
 </a>
+<div class="get_price_div">
+	<div class="title_div">青岛市福利，立即获取报价</div>
+	<div class="user_count_div">已有<span class="user_count_span">100</span>人获取了产品价格</div>
+	<div class="userName_div">
+		<span class="userName_span">姓名</span><span class="biTian_span">*</span>
+		<div class="un_inp_div">
+			<input class="userName_inp" type="text" placeholder="请输入姓名"/>
+		</div>
+	</div>
+	<div class="phone_div">
+		<span class="phone_span">电话</span><span class="biTian_span">*</span>
+		<div class="phone_inp_div">
+			<input class="phone_inp" type="text" placeholder="请输入手机号"/>
+		</div>
+	</div>
+	<div class="product_need_div">
+		<div class="pn_text_span">产品需求<span class="biTian_span">*</span></div>
+		<div class="list_div">
+			<div class="item_div">
+				<input type="radio" name="pn"/>
+				<span>无人值守地磅称重系统</span>
+			</div>
+			<div class="item_div">
+				<input type="radio" name="pn"/>
+				<span>无人值守地磅称重系统</span>
+			</div>
+			<div class="item_div">
+				<input type="radio" name="pn"/>
+				<span>无人值守地磅称重系统</span>
+			</div>
+			<div class="item_div">
+				<input type="radio" name="pn"/>
+				<span>无人值守地磅称重系统</span>
+			</div>
+			<div class="item_div">
+				<input type="radio" name="pn"/>
+				<span>无人值守地磅称重系统</span>
+			</div>
+		</div>
+		<div class="zdsrlsxx_div">
+			<input type="checkbox"/>
+			<span class="zdsrlsxx_span">自动输入历史信息</span>
+			<span class="xxsqyszc_span">《个人信息授权与隐私政策》</span>
+		</div>
+		<div class="get_price_but_div">立即获取报价</div>
+	</div>
+</div>
+<div class="gpu_list_div">
+	<div class="item_div">
+		<img class="call_img" src="<%=basePath %>resource/image/001.png"/>
+		<div class="userName1_div">李**</div>
+		<div class="phone1_div">136******26</div>
+		<div class="time_div">1天前</div>
+	</div>
+</div>
 <video style="width:100%;" controls="" preload="none"  x5-playsinline="" playsinline="" webkit-playsinline="" poster="<%=basePath %>resource/image/202011240038.png">
 	<source src="<%=basePath %>resource/video/202011240037.mp4"></source>
 </video>

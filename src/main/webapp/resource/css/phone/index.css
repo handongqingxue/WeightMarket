@@ -28,6 +28,82 @@ body{
 	font-size:13px;
 	text-align:center;
 }
+.get_price_div{
+	width: 340px;margin:50px auto 0;
+}
+.get_price_div .title_div{
+	width: 100%;color: #f00;font-size: 20px;font-weight: bold;text-align: center;
+}
+.get_price_div .user_count_div{
+	width: 100%;margin-top:20px;margin-bottom:15px;text-align: center;font-size: 10px;
+}
+.get_price_div .user_count_span{
+	font-weight: bold;
+}
+.userName_div,.phone_div{
+	width: 100%;height: 55px;line-height: 55px;
+}
+.userName_span,.phone_span{
+	color: #666;
+}
+.get_price_div .biTian_span{
+	color: #f00;
+}
+.un_inp_div,.phone_inp_div{
+	width: 265px;height: 40px;margin-left: 70px;margin-top: -50px;border: #000 solid 1px;
+}
+.userName_inp,.phone_inp{
+	width:230px;height:25px; margin-top:7px;margin-left:10px; border: 0;
+}
+.product_need_div{
+	width: 100%;padding: 1px;
+}
+.pn_text_span{
+	height: 50px;line-height: 50px;
+}
+.product_need_div .list_div{
+	width: 265px;margin-top: -50px;margin-left: 70px;
+}
+.product_need_div .list_div .item_div{
+	width: 100%;height:50px;line-height:50px;
+}
+.zdsrlsxx_div{
+	width:100%;font-size: 14px;
+}
+.zdsrlsxx_span{
+	color: #666;
+}
+.xxsqyszc_span{
+	color: #467eff;
+}
+.get_price_but_div{
+	width: 295px;height: 47px;line-height: 47px;margin: 20px auto 0;color:#fff;text-align:center;background-color: #467EFF;border-radius:15px;
+}
+.gpu_list_div{
+	width: 340px;margin:auto;background-color: #0f0;
+}
+.gpu_list_div .item_div{
+	width:100%;
+	height:33px;
+	line-height:33px;
+}
+.gpu_list_div .item_div .call_img{
+	margin-top:5px;
+	margin-left:20px;
+}
+.gpu_list_div .item_div .userName1_div{
+	margin-top:-27px;
+	margin-left:55px;
+}
+.gpu_list_div .item_div .phone1_div{
+	margin-top:-33px;
+	margin-left:125px;
+}
+.gpu_list_div .item_div .time_div{
+	margin-top:-33px;
+	margin-left:270px;
+}
+
 .cpzlqq_div{
 	width:330px;
 	height:205px;
