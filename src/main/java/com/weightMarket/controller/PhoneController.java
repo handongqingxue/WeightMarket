@@ -12,4 +12,10 @@ public class PhoneController {
 		
 		return "/phone/index";
 	}
+
+	@RequestMapping(value="/goOpenTaoBaoApp")
+	public String goOpenTaoBaoApp() {
+
+		return "/phone/openTaoBaoApp";
+	}
 }

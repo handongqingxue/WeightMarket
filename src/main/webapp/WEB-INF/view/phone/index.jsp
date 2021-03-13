@@ -12,30 +12,55 @@
 <link rel="stylesheet" href="<%=basePath %>resource/css/phone/index.css"/>
 <script type="text/javascript" src="<%=basePath %>resource/js/jquery-3.3.1.js"></script>
 <script type="text/javascript">
-var interval;
+var gpuInterval,zxcykhInterval;
 $(function(){
-	//setInterval("moveItemDiv()","3000");
+	setInterval("moveGPUItemDiv()","3000");
+	setInterval("moveZXCYKHItemDiv()","3000");
 });
 
-//将列表里的第一项移动到最后一项，实现列表刷新
+//将获取报价客户列表里的第一项移动到最后一项，实现列表刷新
+function refreshGPU(){
+	var gpuListDiv=$("#gpu_list_div");
+	var itemDiv=gpuListDiv.find(".item_div").eq(0);
+	gpuListDiv.append(itemDiv);
+}
+
+//将最新参与客户列表里的第一项移动到最后一项，实现列表刷新
 function refreshZXCYKH(){
-	var zxcykhListDiv=$("#zxcykhList_div");
+	var zxcykhListDiv=$("#zxcykh_list_div");
 	var itemDiv=zxcykhListDiv.find(".item_div").eq(0);
 	zxcykhListDiv.append(itemDiv);
 }
 
-//将列表里的某一项向上移动
-function moveItemDiv(){
-	var zxcykhListDiv=$("#zxcykhList_div");
-	var itemDiv=zxcykhListDiv.find(".item_div").eq(0);
-	interval=setInterval(function(){
+function moveGPUItemDiv(){
+	var gpuListDiv=$("#gpu_list_div");
+	var itemDiv=gpuListDiv.find(".item_div").eq(0);
+	gpuInterval=setInterval(function(){
 		var marginTop=itemDiv.css("margin-top");
 		marginTop=marginTop.substring(0,marginTop.length-2);
 		//console.log(marginTop);
 		marginTop--;
 		itemDiv.css("margin-top",marginTop+"px");
 		if(marginTop<=-33){
-			clearInterval(interval);
+			clearInterval(gpuInterval);
+			refreshGPU();
+			itemDiv.css("margin-top","0px");
+		}
+	},"10");
+}
+
+//将最新参与客户列表里的某一项向上移动
+function moveZXCYKHItemDiv(){
+	var zxcykhListDiv=$("#zxcykh_list_div");
+	var itemDiv=zxcykhListDiv.find(".item_div").eq(0);
+	zxcykhInterval=setInterval(function(){
+		var marginTop=itemDiv.css("margin-top");
+		marginTop=marginTop.substring(0,marginTop.length-2);
+		//console.log(marginTop);
+		marginTop--;
+		itemDiv.css("margin-top",marginTop+"px");
+		if(marginTop<=-33){
+			clearInterval(zxcykhInterval);
 			refreshZXCYKH();
 			itemDiv.css("margin-top","0px");
 		}
@@ -102,12 +127,30 @@ function moveItemDiv(){
 		<div class="get_price_but_div">立即获取报价</div>
 	</div>
 </div>
-<div class="gpu_list_div">
+<div class="gpu_list_div" id="gpu_list_div">
 	<div class="item_div">
 		<img class="call_img" src="<%=basePath %>resource/image/001.png"/>
 		<div class="userName1_div">李**</div>
 		<div class="phone1_div">136******26</div>
 		<div class="time_div">1天前</div>
+	</div>
+	<div class="item_div">
+		<img class="call_img" src="<%=basePath %>resource/image/001.png"/>
+		<div class="userName1_div">刘**</div>
+		<div class="phone1_div">136******26</div>
+		<div class="time_div">2天前</div>
+	</div>
+	<div class="item_div">
+		<img class="call_img" src="<%=basePath %>resource/image/001.png"/>
+		<div class="userName1_div">于**</div>
+		<div class="phone1_div">136******26</div>
+		<div class="time_div">3天前</div>
+	</div>
+	<div class="item_div">
+		<img class="call_img" src="<%=basePath %>resource/image/001.png"/>
+		<div class="userName1_div">嬲**</div>
+		<div class="phone1_div">136******26</div>
+		<div class="time_div">4天前</div>
 	</div>
 </div>
 <video style="width:100%;" controls="" preload="none"  x5-playsinline="" playsinline="" webkit-playsinline="" poster="<%=basePath %>resource/image/202011240038.png">
@@ -129,7 +172,7 @@ function moveItemDiv(){
 </div>
 <div class="zxcykh_div">
 	<div class="title_div">最新参与客户</div>
-	<div class="list_div" id="zxcykhList_div">
+	<div class="list_div" id="zxcykh_list_div">
 		<div class="item_div">
 			<img class="call_img" src="<%=basePath %>resource/image/001.png"/>
 			<div class="userName1_div">李**</div>
