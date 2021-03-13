@@ -14,9 +14,13 @@
 <script type="text/javascript">
 var gpuInterval,zxcykhInterval;
 $(function(){
-	setInterval("moveGPUItemDiv()","3000");
-	setInterval("moveZXCYKHItemDiv()","3000");
+	//setInterval("moveGPUItemDiv()","3000");
+	//setInterval("moveZXCYKHItemDiv()","3000");
 });
+
+function showXXSQYSZCDiv(show){
+	$("#xxsqyszc_bg_div").css("display",show?"block":"none");
+}
 
 //将获取报价客户列表里的第一项移动到最后一项，实现列表刷新
 function refreshGPU(){
@@ -73,6 +77,15 @@ function moveZXCYKHItemDiv(){
 </style>
 </head>
 <body>
+<div class="xxsqyszc_bg_div" id="xxsqyszc_bg_div">
+	<div class="xxsqyszc_div">
+		<div class="title_div">个人信息授权与隐私政策<span class="close_span" onclick="showXXSQYSZCDiv(false)">X</span></div>
+		<div class="content_div">
+尊敬的用户，您选择使用“自动输入历史信息”功能，您同意本平台在法律允许的范围内，收集您输入的信息，您已知晓并同意在您浏览使用本平台建站服务搭建的页面时， 我们会帮您预先填写上次输入的历史信息，您的历史信息仅用于页面的预填充，且只有您点击提交按钮之后信息才会传递给商家使用。 本平台非常重视用户信息的保护，详见 <a class="yszc_a">《隐私政策》</a>
+		</div>
+	</div>
+</div>
+
 <img class="logo_img" src="<%=basePath %>resource/image/b91440230303c04be46f77ac31bbb390.jpg"/>
 <a href="tel:15712773653">
 	<div class="tel_div">
@@ -122,7 +135,7 @@ function moveZXCYKHItemDiv(){
 		<div class="zdsrlsxx_div">
 			<input type="checkbox"/>
 			<span class="zdsrlsxx_span">自动输入历史信息</span>
-			<span class="xxsqyszc_span">《个人信息授权与隐私政策》</span>
+			<span class="xxsqyszc_span" onclick="showXXSQYSZCDiv(true)">《个人信息授权与隐私政策》</span>
 		</div>
 		<div class="get_price_but_div">立即获取报价</div>
 	</div>
