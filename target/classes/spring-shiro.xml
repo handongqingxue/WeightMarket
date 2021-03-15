@@ -24,8 +24,9 @@
 		<property name="loginUrl" value="/admin/login" />
 		<property name="filterChainDefinitions">
 			<value>
+				/background/login/captcha=anon
 				/phone/**=anon
-				/admin/login=anon
+				/background/login=anon
 				/resource/**=anon
 				/**=authc
 			</value>
