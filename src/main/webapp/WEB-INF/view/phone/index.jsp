@@ -12,11 +12,37 @@
 <link rel="stylesheet" href="<%=basePath %>resource/css/phone/index.css"/>
 <script type="text/javascript" src="<%=basePath %>resource/js/jquery-3.3.1.js"></script>
 <script type="text/javascript">
+var path='<%=basePath %>';
 var gpuInterval,zxcykhInterval;
 $(function(){
 	//setInterval("moveGPUItemDiv()","3000");
 	//setInterval("moveZXCYKHItemDiv()","3000");
+	initGPUListDiv();
 });
+
+function initGPUListDiv(){
+	$.post("selectGetPriceUserList",
+		{deal:false},
+		function(result){
+			var gpuListDiv=$("#gpu_list_div");
+			gpuListDiv.empty();
+			if(result.message=="ok"){
+				var gpuList=result.data;
+				for(var i=0;i<gpuList.length;i++){
+					var gpu=gpuList[i];
+					var appendStr="";
+						appendStr+="<div class=\"item_div\">";
+						appendStr+="<img class=\"call_img\" src=\""+path+"resource/image/001.png\"/>";
+						appendStr+="<div class=\"userName1_div\">"+gpu.xhUserName+"</div>";
+						appendStr+="<div class=\"phone1_div\">"+gpu.xhPhone+"</div>";
+						appendStr+="<div class=\"time_div\">"+gpu.timeAgo+"</div>";
+						appendStr+="</div>";
+					gpuListDiv.append(appendStr);
+				}
+			}
+		}
+	,"json");
+}
 
 function showXXSQYSZCDiv(show){
 	$("#xxsqyszc_bg_div").css("display",show?"block":"none");
@@ -250,30 +276,14 @@ function showAGPUWarnDiv(show,msg){
 	</div>
 </div>
 <div class="gpu_list_div" id="gpu_list_div">
+	<!-- 
 	<div class="item_div">
 		<img class="call_img" src="<%=basePath %>resource/image/001.png"/>
 		<div class="userName1_div">李**</div>
 		<div class="phone1_div">136******26</div>
 		<div class="time_div">1天前</div>
 	</div>
-	<div class="item_div">
-		<img class="call_img" src="<%=basePath %>resource/image/001.png"/>
-		<div class="userName1_div">刘**</div>
-		<div class="phone1_div">136******26</div>
-		<div class="time_div">2天前</div>
-	</div>
-	<div class="item_div">
-		<img class="call_img" src="<%=basePath %>resource/image/001.png"/>
-		<div class="userName1_div">于**</div>
-		<div class="phone1_div">136******26</div>
-		<div class="time_div">3天前</div>
-	</div>
-	<div class="item_div">
-		<img class="call_img" src="<%=basePath %>resource/image/001.png"/>
-		<div class="userName1_div">嬲**</div>
-		<div class="phone1_div">136******26</div>
-		<div class="time_div">4天前</div>
-	</div>
+	 -->
 </div>
 <video style="width:100%;" controls="" preload="none"  x5-playsinline="" playsinline="" webkit-playsinline="" poster="<%=basePath %>resource/image/202011240038.png">
 	<source src="<%=basePath %>resource/video/202011240037.mp4"></source>

@@ -1,5 +1,9 @@
 package com.weightMarket.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,5 +52,23 @@ public class PhoneController {
 			json=JsonUtil.getJsonFromObject(plan);
 		}
 		return json;
+	}
+	
+	@RequestMapping(value="/selectGetPriceUserList")
+	@ResponseBody
+	public Map<String, Object> selectGetPriceUserList(Boolean deal) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		List<GetPriceUser> gpuList=getPriceUserService.selectGetPriceUserList(deal);
+		
+		if(gpuList.size()==0) {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "暂无报价用户");
+		}
+		else {
+			jsonMap.put("message", "ok");
+			jsonMap.put("data", gpuList);
+		}
+		return jsonMap;
 	}
 }

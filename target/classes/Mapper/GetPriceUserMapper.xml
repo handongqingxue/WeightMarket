@@ -33,4 +33,11 @@
  				0
  		</trim>
  	</insert>
+ 	<select id="selectGetPriceUserList" resultType="com.weightMarket.entity.GetPriceUser">
+ 		select CONCAT(left(userName,1),'**') xhUserName,CONCAT(left(phone,3),'******',right(phone,2)) xhPhone,UNIX_TIMESTAMP(now())- UNIX_TIMESTAMP(createTime) secondAgo from get_price_user where 1=1
+ 		<if test="deal!=''&amp;deal!=null">
+ 			deal=#{deal}
+ 		</if>
+ 		order by createTime desc
+ 	</select>
 </mapper>
