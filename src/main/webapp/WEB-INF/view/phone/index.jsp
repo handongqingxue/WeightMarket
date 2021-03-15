@@ -70,6 +70,103 @@ function moveZXCYKHItemDiv(){
 		}
 	},"10");
 }
+
+function checkGetPriceUserInfo(){
+	if(checkGetPriceUserName()){
+		if(checkGetPricePhone()){
+			if(checkProductNeedId()){
+				addGetPriceUser();
+			}
+		}
+	}
+}
+
+function addGetPriceUser(){
+	var userName=$("#get_price_div #userName").val();
+	var phone=$("#get_price_div #phone").val();
+	var radChecked=$("input[id^='pn_rad']:checked");
+	var radId=radChecked.attr("id");
+	var pnId=radId.substring(6,radId.length);
+	$.post("addGetPriceUser",
+		{userName:userName,phone:phone,pnId:pnId},
+		function(result){
+			showAGPUWarnDiv(result.status==1?true:false,result.msg);
+		}
+	,"json");
+}
+
+function checkGetPriceUserName(){
+	var userName=$("#get_price_div #userName").val();
+	if(userName==null||userName==""){
+		showUserNameWarnDiv(true);
+    	return false;
+	}
+	else
+		return true;
+}
+
+function checkGetPricePhone(){
+	var phone=$("#get_price_div #phone").val();
+	if(phone==null||phone==""){
+		showPhoneWarnDiv(true);
+    	return false;
+	}
+	else
+		return true;
+}
+
+function checkProductNeedId(){
+	var radChecked=$("input[id^='pn_rad']:checked");
+	if(radChecked.length==0){
+		showPNWarnDiv(true);
+    	return false;
+	}
+	else{
+		return true;
+	}
+}
+
+function showUserNameWarnDiv(show){
+	if(show){
+		$("#userName_warn_bg_div").css("display","block");
+		setTimeout("showUserNameWarnDiv(false)","3000");
+	}
+	else{
+		$("#userName_warn_bg_div").css("display","none");
+	}
+}
+
+function showPhoneWarnDiv(show){
+	if(show){
+		$("#phone_warn_bg_div").css("display","block");
+		setTimeout("showPhoneWarnDiv(false)","3000");
+	}
+	else{
+		$("#phone_warn_bg_div").css("display","none");
+	}
+}
+
+function showPNWarnDiv(show){
+	if(show){
+		$("#pn_warn_bg_div").css("display","block");
+		setTimeout("showPNWarnDiv(false)","3000");
+	}
+	else{
+		$("#pn_warn_bg_div").css("display","none");
+	}
+}
+
+function showAGPUWarnDiv(show,msg){
+	if(show){
+		$("#agpu_warn_bg_div").css("display","block");
+		$("#agpu_warn_div").text(msg);
+		setTimeout("showAGPUWarnDiv(false)","3000");
+	}
+	else{
+		$("#agpu_warn_bg_div").css("display","none");
+		$("#agpu_warn_div").text("");
+	}
+}
 </script>
 <title>营销页面</title>
 <style>
@@ -77,6 +174,18 @@ function moveZXCYKHItemDiv(){
 </style>
 </head>
 <body>
+<div class="userName_warn_bg_div" id="userName_warn_bg_div">
+	<div class="warn_div userName_warn_div">请输入姓名</div>
+</div>
+<div class="phone_warn_bg_div" id="phone_warn_bg_div">
+	<div class="warn_div phone_warn_div">请输入手机号</div>
+</div>
+<div class="pn_warn_bg_div" id="pn_warn_bg_div">
+	<div class="warn_div pn_warn_div">请选择产品需求</div>
+</div>
+<div class="agpu_warn_bg_div" id="agpu_warn_bg_div">
+	<div class="warn_div agpu_warn_div" id="agpu_warn_div"></div>
+</div>
 <div class="xxsqyszc_bg_div" id="xxsqyszc_bg_div">
 	<div class="xxsqyszc_div">
 		<div class="title_div">个人信息授权与隐私政策<span class="close_span" onclick="showXXSQYSZCDiv(false)">X</span></div>
@@ -93,42 +202,42 @@ function moveZXCYKHItemDiv(){
 		<div class="text_div">电话</div>
 	</div>
 </a>
-<div class="get_price_div">
+<div class="get_price_div" id="get_price_div">
 	<div class="title_div">青岛市福利，立即获取报价</div>
 	<div class="user_count_div">已有<span class="user_count_span">100</span>人获取了产品价格</div>
 	<div class="userName_div">
 		<span class="userName_span">姓名</span><span class="biTian_span">*</span>
 		<div class="un_inp_div">
-			<input class="userName_inp" type="text" placeholder="请输入姓名"/>
+			<input class="userName_inp" id="userName" type="text" placeholder="请输入姓名"/>
 		</div>
 	</div>
 	<div class="phone_div">
 		<span class="phone_span">电话</span><span class="biTian_span">*</span>
 		<div class="phone_inp_div">
-			<input class="phone_inp" type="text" placeholder="请输入手机号"/>
+			<input class="phone_inp" id="phone" type="text" placeholder="请输入手机号"/>
 		</div>
 	</div>
 	<div class="product_need_div">
 		<div class="pn_text_span">产品需求<span class="biTian_span">*</span></div>
 		<div class="list_div">
 			<div class="item_div">
-				<input type="radio" name="pn"/>
+				<input type="radio" name="pn" id="pn_rad1"/>
 				<span>无人值守地磅称重系统</span>
 			</div>
 			<div class="item_div">
-				<input type="radio" name="pn"/>
+				<input type="radio" name="pn" id="pn_rad2"/>
 				<span>无人值守地磅称重系统</span>
 			</div>
 			<div class="item_div">
-				<input type="radio" name="pn"/>
+				<input type="radio" name="pn" id="pn_rad3"/>
 				<span>无人值守地磅称重系统</span>
 			</div>
 			<div class="item_div">
-				<input type="radio" name="pn"/>
+				<input type="radio" name="pn" id="pn_rad4"/>
 				<span>无人值守地磅称重系统</span>
 			</div>
 			<div class="item_div">
-				<input type="radio" name="pn"/>
+				<input type="radio" name="pn" id="pn_rad5"/>
 				<span>无人值守地磅称重系统</span>
 			</div>
 		</div>
@@ -137,7 +246,7 @@ function moveZXCYKHItemDiv(){
 			<span class="zdsrlsxx_span">自动输入历史信息</span>
 			<span class="xxsqyszc_span" onclick="showXXSQYSZCDiv(true)">《个人信息授权与隐私政策》</span>
 		</div>
-		<div class="get_price_but_div">立即获取报价</div>
+		<div class="get_price_but_div" onclick="checkGetPriceUserInfo()">立即获取报价</div>
 	</div>
 </div>
 <div class="gpu_list_div" id="gpu_list_div">
