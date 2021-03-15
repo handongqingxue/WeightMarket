@@ -1,7 +1,7 @@
 body{
 	margin:0;
 }
-.userName_warn_bg_div,.phone_warn_bg_div,.pn_warn_bg_div,.agpu_warn_bg_div{
+.userName_warn_bg_div,.phone_warn_bg_div,.pn_warn_bg_div,.agpu_warn_bg_div,.aptu_warn_bg_div{
 	width: 100%;
 	height: 40px;
 	line-height: 40px;
@@ -16,7 +16,7 @@ body{
 	background-color: #000;
 	border-radius:5px;
 }
-.userName_warn_div{
+.userName_warn_div,.aptu_warn_div{
 	width: 100px;
 }
 .phone_warn_div{
@@ -280,13 +280,13 @@ body{
 	margin-top:-27px;
 	margin-left:55px;
 }
-.zxcykh_div .list_div .item_div .password_div{
+.zxcykh_div .list_div .item_div .phone1_div{
 	margin-top:-33px;
 	margin-left:125px;
 }
 .zxcykh_div .list_div .item_div .time_div{
 	margin-top:-33px;
-	margin-left:270px;
+	margin-left:257px;
 }
 .alzs_div{
 	width:100%;

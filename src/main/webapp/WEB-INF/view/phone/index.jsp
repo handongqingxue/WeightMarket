@@ -18,6 +18,7 @@ $(function(){
 	//setInterval("moveGPUItemDiv()","3000");
 	//setInterval("moveZXCYKHItemDiv()","3000");
 	initGPUListDiv();
+	initZxcykhListDiv();
 });
 
 function initGPUListDiv(){
@@ -44,6 +45,35 @@ function initGPUListDiv(){
 			}
 			else{
 				$("#get_price_div #user_count_span").text(0);
+			}
+		}
+	,"json");
+}
+
+function initZxcykhListDiv(){
+	$.post("selectProductTypeUserList",
+		{deal:false},
+		function(result){
+			var zxcykhListDiv=$("#zxcykh_list_div");
+			zxcykhListDiv.empty();
+			if(result.message=="ok"){
+				var ptuList=result.data;
+				var ptuLength=ptuList.length;
+				$("#cpzlqq_div #ytj_span").text(ptuLength);
+				for(var i=0;i<ptuLength;i++){
+					var ptu=ptuList[i];
+					var appendStr="";
+						appendStr+="<div class=\"item_div\">";
+						appendStr+="<img class=\"call_img\" src=\""+path+"resource/image/001.png\"/>";
+						appendStr+="<div class=\"userName1_div\">"+ptu.xhUserName+"</div>";
+						appendStr+="<div class=\"phone1_div\">"+ptu.xhPhone+"</div>";
+						appendStr+="<div class=\"time_div\">"+ptu.timeAgo+"</div>";
+						appendStr+="</div>";
+					zxcykhListDiv.append(appendStr);
+				}
+			}
+			else{
+				$("#cpzlqq_div #ytj_span").text(0);
 			}
 		}
 	,"json");
@@ -112,6 +142,14 @@ function checkGetPriceUserInfo(){
 	}
 }
 
+function checkProductTypeUserInfo(){
+	if(checkProductTypeUserName()){
+		if(checkProductTypePhone()){
+			addProductTypeUser();
+		}
+	}
+}
+
 function addGetPriceUser(){
 	var userName=$("#get_price_div #userName").val();
 	var phone=$("#get_price_div #phone").val();
@@ -122,6 +160,17 @@ function addGetPriceUser(){
 		{userName:userName,phone:phone,pnId:pnId},
 		function(result){
 			showAGPUWarnDiv(result.status==1?true:false,result.msg);
+		}
+	,"json");
+}
+
+function addProductTypeUser(){
+	var userName=$("#cpzlqq_div #userName").val();
+	var phone=$("#cpzlqq_div #phone").val();
+	$.post("addProductTypeUser",
+		{userName:userName,phone:phone},
+		function(result){
+			showAPTUWarnDiv(result.status==1?true:false,result.msg);
 		}
 	,"json");
 }
@@ -155,6 +204,26 @@ function checkProductNeedId(){
 	else{
 		return true;
 	}
+}
+
+function checkProductTypeUserName(){
+	var userName=$("#cpzlqq_div #userName").val();
+	if(userName==null||userName==""){
+		showUserNameWarnDiv(true);
+    	return false;
+	}
+	else
+		return true;
+}
+
+function checkProductTypePhone(){
+	var phone=$("#cpzlqq_div #phone").val();
+	if(phone==null||phone==""){
+		showPhoneWarnDiv(true);
+    	return false;
+	}
+	else
+		return true;
 }
 
 function showUserNameWarnDiv(show){
@@ -198,6 +267,18 @@ function showAGPUWarnDiv(show,msg){
 		$("#agpu_warn_div").text("");
 	}
 }
+
+function showAPTUWarnDiv(show,msg){
+	if(show){
+		$("#aptu_warn_bg_div").css("display","block");
+		$("#aptu_warn_div").text(msg);
+		setTimeout("showAPTUWarnDiv(false)","3000");
+	}
+	else{
+		$("#aptu_warn_bg_div").css("display","none");
+		$("#aptu_warn_div").text("");
+	}
+}
 </script>
 <title>营销页面</title>
 <style>
@@ -217,6 +298,10 @@ function showAGPUWarnDiv(show,msg){
 <div class="agpu_warn_bg_div" id="agpu_warn_bg_div">
 	<div class="warn_div agpu_warn_div" id="agpu_warn_div"></div>
 </div>
+<div class="aptu_warn_bg_div" id="aptu_warn_bg_div">
+	<div class="warn_div aptu_warn_div" id="aptu_warn_div"></div>
+</div>
+
 <div class="xxsqyszc_bg_div" id="xxsqyszc_bg_div">
 	<div class="xxsqyszc_div">
 		<div class="title_div">个人信息授权与隐私政策<span class="close_span" onclick="showXXSQYSZCDiv(false)">X</span></div>
@@ -296,44 +381,28 @@ function showAGPUWarnDiv(show,msg){
 <img class="sfhydyxnt_img" src="<%=basePath %>resource/image/d06cdcf93c2e042fb6fe48ae989f292c.jpg"/>
 <div style="background-color:#035CAF;width:100%;height:50px;line-height:50px;color:#fff;text-align:center;font-size:20px;">辰麒帮您解决所有问题</div>
 <img class="xtys_img" src="<%=basePath %>resource/image/96f18448915071b9fe4d49bf318b0a6e.jpg@q_80.jpg"/>
-<div class="cpzlqq_div">
+<div class="cpzlqq_div" id="cpzlqq_div">
 	<div class="title_div">16种系列  产品种类齐全</div>
-	<div class="ytj_div">已提交了<span class="ytj_span">100</span>人</div>
+	<div class="ytj_div">已提交了<span class="ytj_span" id="ytj_span"></span>人</div>
 	<div class="userName_div">
-		<input class="userName_inp" placeholder="请输入姓名(必填)"/>
+		<input class="userName_inp" id="userName" placeholder="请输入姓名(必填)"/>
 	</div>
 	<div class="phone_div">
-		<input class="phone_inp" placeholder="请输入手机号(必填)"/>
+		<input class="phone_inp" id="phone" placeholder="请输入手机号(必填)"/>
 	</div>
-	<div class="submit_but_div">提交</div>
+	<div class="submit_but_div" onclick="checkProductTypeUserInfo()">提交</div>
 </div>
 <div class="zxcykh_div">
 	<div class="title_div">最新参与客户</div>
 	<div class="list_div" id="zxcykh_list_div">
+		<!-- 
 		<div class="item_div">
 			<img class="call_img" src="<%=basePath %>resource/image/001.png"/>
 			<div class="userName1_div">李**</div>
-			<div class="password_div">136******26</div>
+			<div class="phone1_div">136******26</div>
 			<div class="time_div">1天前</div>
 		</div>
-		<div class="item_div">
-			<img class="call_img" src="<%=basePath %>resource/image/001.png"/>
-			<div class="userName1_div">于**</div>
-			<div class="password_div">187******28</div>
-			<div class="time_div">2天前</div>
-		</div>
-		<div class="item_div">
-			<img class="call_img" src="<%=basePath %>resource/image/001.png"/>
-			<div class="userName1_div">燕**</div>
-			<div class="password_div">135******62</div>
-			<div class="time_div">3天前</div>
-		</div>
-		<div class="item_div">
-			<img class="call_img" src="<%=basePath %>resource/image/001.png"/>
-			<div class="userName1_div">彭**</div>
-			<div class="password_div">133******38</div>
-			<div class="time_div">4天前</div>
-		</div>
+		 -->
 	</div>
 </div>
 <div class="alzs_div">

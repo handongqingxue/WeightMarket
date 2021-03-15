@@ -2,7 +2,7 @@ package com.weightMarket.service;
 
 import java.util.List;
 
-import com.weightMarket.entity.GetPriceUser;
+import com.weightMarket.entity.*;
 
 public interface GetPriceUserService {
 
