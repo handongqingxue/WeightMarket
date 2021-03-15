@@ -2,10 +2,10 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- <mapper namespace="com.weightMarket.dao.UserMapper">
-	<select id="getUser" resultType="com.weightMarket.entity.User">
+ <mapper namespace="com.weightMarket.dao.AdminMapper">
+	<select id="getAdmin" resultType="com.weightMarket.entity.Admin">
 		select * from
-		user
+		admin
 		where 1=1
 		<if test="userName!=null">
 			and userName=#{userName}

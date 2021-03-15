@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.weightMarket.entity.User;
+import com.weightMarket.entity.Admin;
 import com.weightMarket.util.JsonUtil;
 import com.weightMarket.util.PlanResult;
 import com.weightMarket.service.UtilService;
@@ -24,6 +24,7 @@ public class BackgroundController {
 
 	@Autowired
 	private UtilService utilService;
+	public static final String MODULE_NAME="/background";
 	
 	/**
 	 * 跳转至登录页面
@@ -32,7 +33,7 @@ public class BackgroundController {
 	@RequestMapping(value="/login",method=RequestMethod.GET)
 	public String login(HttpServletRequest request) {
 		
-		return "/background/login";
+		return MODULE_NAME+"/login";
 	}
 
 	/**
@@ -83,16 +84,22 @@ public class BackgroundController {
 				plan.setMsg("登陆失败");
 				return JsonUtil.getJsonFromObject(plan);
 			}
-			User user=(User)SecurityUtils.getSubject().getPrincipal();
-			session.setAttribute("user", user);
+			Admin admin=(Admin)SecurityUtils.getSubject().getPrincipal();
+			session.setAttribute("admin", admin);
 			
 			plan.setStatus(0);
 			plan.setMsg("验证通过");
-			plan.setUrl("/background/merchant/check/list");
+			plan.setUrl("/background/sysMgr/sysSet/set");
 			return JsonUtil.getJsonFromObject(plan);
 		}
 		plan.setStatus(1);
 		plan.setMsg("验证码错误");
 		return JsonUtil.getJsonFromObject(plan);
+	}
+	
+	@RequestMapping(value="/sysMgr/sysSet/set")
+	public String goMerchantAllList() {
+		
+		return MODULE_NAME+"/sysMgr/sysSet/set";
 	}
 }

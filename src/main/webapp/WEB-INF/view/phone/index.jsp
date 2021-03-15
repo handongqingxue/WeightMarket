@@ -15,8 +15,8 @@
 var path='<%=basePath %>';
 var gpuInterval,zxcykhInterval;
 $(function(){
-	//setInterval("moveGPUItemDiv()","3000");
-	//setInterval("moveZXCYKHItemDiv()","3000");
+	setInterval("moveGPUItemDiv()","3000");
+	setInterval("moveZXCYKHItemDiv()","3000");
 	initGPUListDiv();
 	initZxcykhListDiv();
 });

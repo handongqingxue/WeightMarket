@@ -1,13 +1,13 @@
 package com.weightMarket.entity;
 
-public class User {
+public class Admin {
 
-	public User(String userName, String password) {
+	public Admin(String userName, String password) {
 		this.userName = userName;
 		this.password = password;
 	}
 	
-	public User() {
+	public Admin() {
 		super();
 	}
 	

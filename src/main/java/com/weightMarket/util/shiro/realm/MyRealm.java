@@ -14,17 +14,17 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.weightMarket.dao.UserMapper;
-import com.weightMarket.entity.User;
+import com.weightMarket.dao.AdminMapper;
+import com.weightMarket.entity.Admin;
 
 public class MyRealm extends AuthorizingRealm {
 	@Autowired
-	private UserMapper userMapper;
+	private AdminMapper adminMapper;
 
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0) {
 		// TODO Auto-generated method stub
-		User msg=(User)SecurityUtils.getSubject().getPrincipal();
+		Admin msg=(Admin)SecurityUtils.getSubject().getPrincipal();
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo(); 
 		if(msg.getId()==null) {
 			return info;
@@ -45,8 +45,8 @@ public class MyRealm extends AuthorizingRealm {
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
 		// TODO Auto-generated method stub
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
-		User msg=new User(token.getUsername(),String.valueOf(token.getPassword()));
-		User resultMsg=userMapper.getUser(msg);
+		Admin msg=new Admin(token.getUsername(),String.valueOf(token.getPassword()));
+		Admin resultMsg=adminMapper.getAdmin(msg);
 		if(token.getUsername().equals(resultMsg.getUserName())
 				&&
 				String.valueOf(token.getPassword()).equals(resultMsg.getPassword())){
