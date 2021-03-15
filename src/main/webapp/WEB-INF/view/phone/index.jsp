@@ -28,7 +28,9 @@ function initGPUListDiv(){
 			gpuListDiv.empty();
 			if(result.message=="ok"){
 				var gpuList=result.data;
-				for(var i=0;i<gpuList.length;i++){
+				var gpuLength=gpuList.length;
+				$("#get_price_div #user_count_span").text(gpuLength);
+				for(var i=0;i<gpuLength;i++){
 					var gpu=gpuList[i];
 					var appendStr="";
 						appendStr+="<div class=\"item_div\">";
@@ -39,6 +41,9 @@ function initGPUListDiv(){
 						appendStr+="</div>";
 					gpuListDiv.append(appendStr);
 				}
+			}
+			else{
+				$("#get_price_div #user_count_span").text(0);
 			}
 		}
 	,"json");
@@ -230,7 +235,7 @@ function showAGPUWarnDiv(show,msg){
 </a>
 <div class="get_price_div" id="get_price_div">
 	<div class="title_div">青岛市福利，立即获取报价</div>
-	<div class="user_count_div">已有<span class="user_count_span">100</span>人获取了产品价格</div>
+	<div class="user_count_div">已有<span class="user_count_span" id="user_count_span"></span>人获取了产品价格</div>
 	<div class="userName_div">
 		<span class="userName_span">姓名</span><span class="biTian_span">*</span>
 		<div class="un_inp_div">
