@@ -182,7 +182,7 @@
 					<div class="line_div"></div>
 					<li class="layui-nav-item">
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
-						<a href="<%=basePath%>background/merchantCard/hanRec/list">
+						<a href="<%=basePath%>background/fgDataMgr/productTypeUser/list">
 							&nbsp;&nbsp;&nbsp;产品种类客户
 						</a>
 					</li>

@@ -10,4 +10,9 @@ public interface ProductTypeUserService {
 
 	List<ProductTypeUser> selectProductTypeUserList(Boolean deal);
 
+	int selectForInt(String userName, String phone, String createTimeStart, String createTimeEnd, Boolean deal);
+
+	List<ProductTypeUser> selectForList(String userName, String phone, String createTimeStart, String createTimeEnd,
+			Boolean deal, int page, int rows, String sort, String order);
+
 }

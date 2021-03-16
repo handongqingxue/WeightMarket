@@ -12,4 +12,10 @@ public interface ProductTypeUserMapper {
 
 	List<ProductTypeUser> selectProductTypeUserList(@Param("deal") Boolean deal);
 
+	int selectForInt(@Param("userName") String userName, @Param("phone") String phone, @Param("createTimeStart") String createTimeStart, 
+			@Param("createTimeEnd") String createTimeEnd, @Param("deal") Boolean deal);
+
+	List<ProductTypeUser> selectForList(@Param("userName") String userName, @Param("phone") String phone, @Param("createTimeStart") String createTimeStart, 
+			@Param("createTimeEnd") String createTimeEnd, @Param("deal") Boolean deal, @Param("start") int start, @Param("rows") int rows, String sort, String order);
+
 }

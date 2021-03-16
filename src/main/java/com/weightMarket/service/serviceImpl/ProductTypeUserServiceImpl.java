@@ -43,4 +43,15 @@ public class ProductTypeUserServiceImpl implements ProductTypeUserService {
 		return ptuList;
 	}
 
+	public int selectForInt(String userName, String phone, String createTimeStart, String createTimeEnd, Boolean deal) {
+		// TODO Auto-generated method stub
+		return productTypeUserDao.selectForInt(userName, phone, createTimeStart, createTimeEnd, deal);
+	}
+
+	public List<ProductTypeUser> selectForList(String userName, String phone, String createTimeStart,
+			String createTimeEnd, Boolean deal, int page, int rows, String sort, String order) {
+		// TODO Auto-generated method stub
+		return productTypeUserDao.selectForList(userName, phone, createTimeStart, createTimeEnd, deal, (page-1)*rows, rows, sort, order);
+	}
+
 }

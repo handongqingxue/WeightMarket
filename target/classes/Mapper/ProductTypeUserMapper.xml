@@ -34,4 +34,34 @@
  		</if>
  		order by createTime desc
  	</select>
+ 	<select id="selectForInt" resultType="java.lang.Integer">
+ 		select count(*) from product_type_user where 1=1
+ 		<if test="userName!=''&amp;userName!=null">
+			and userName like'%${userName}%'
+		</if>
+ 		<if test="phone!=''&amp;phone!=null">
+			and phone like'%${phone}%'
+		</if>
+ 		<if test="createTimeStart!=''&amp;createTimeStart!=null&amp;createTimeEnd!=''&amp;createTimeEnd!=null">
+			and createTime between #{createTimeStart} and #{createTimeEnd}
+		</if>
+ 		<if test="deal!=''&amp;deal!=null">
+ 			and deal=#{deal}
+ 		</if>
+ 	</select>
+ 	<select id="selectForList" resultType="com.weightMarket.entity.ProductTypeUser">
+ 		select * from product_type_user where 1=1
+ 		<if test="userName!=''&amp;userName!=null">
+			and userName like'%${userName}%'
+		</if>
+ 		<if test="phone!=''&amp;phone!=null">
+			and phone like'%${phone}%'
+		</if>
+ 		<if test="createTimeStart!=''&amp;createTimeStart!=null&amp;createTimeEnd!=''&amp;createTimeEnd!=null">
+			and createTime between #{createTimeStart} and #{createTimeEnd}
+		</if>
+ 		<if test="deal!=''&amp;deal!=null">
+ 			and deal=#{deal}
+ 		</if>
+ 	</select>
 </mapper>
