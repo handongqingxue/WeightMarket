@@ -43,4 +43,17 @@ public class GetPriceUserServiceImpl implements GetPriceUserService {
 		return gpuList;
 	}
 
+	public int selectForInt(String userName, String phone, String createTimeStart, String createTimeEnd, String pnName,
+			Boolean deal) {
+		// TODO Auto-generated method stub
+		return getPriceUserDao.selectForInt(userName,phone,createTimeStart,createTimeEnd,pnName,deal);
+	}
+
+	public List<GetPriceUser> selectForList(String userName, String phone, String createTimeStart, String createTimeEnd,
+			String pnName, Boolean deal, int page, int rows, String sort, String order) {
+		// TODO Auto-generated method stub
+		return getPriceUserDao.selectForList(userName, phone, createTimeStart, createTimeEnd,
+				pnName, deal, (page-1)*rows, rows, sort, order);
+	}
+
 }

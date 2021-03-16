@@ -57,6 +57,12 @@ public class GetPriceUser {
 	public void setPnId(Integer pnId) {
 		this.pnId = pnId;
 	}
+	public String getPnName() {
+		return pnName;
+	}
+	public void setPnName(String pnName) {
+		this.pnName = pnName;
+	}
 	public Boolean getDeal() {
 		return deal;
 	}
@@ -77,6 +83,7 @@ public class GetPriceUser {
 	private Integer secondAgo;
 	private String timeAgo;
 	private Integer pnId;
+	private String pnName;
 	private Boolean deal;
 	private String memo;
 }

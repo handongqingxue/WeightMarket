@@ -30,6 +30,8 @@ public class BackgroundController {
 	private UtilService utilService;
 	@Autowired
 	private ProductNeedService productNeedService;
+	@Autowired
+	private GetPriceUserService getPriceUserService;
 	public static final String MODULE_NAME="/background";
 	
 	/**
@@ -121,6 +123,12 @@ public class BackgroundController {
 		return MODULE_NAME+"/fgDataMgr/productNeed/list";
 	}
 	
+	@RequestMapping(value="/fgDataMgr/getPriceUser/list")
+	public String goFgDataMgrGetPriceUserList() {
+		
+		return MODULE_NAME+"/fgDataMgr/getPriceUser/list";
+	}
+	
 	@RequestMapping(value="/selectProdNeedList")
 	@ResponseBody
 	public Map<String, Object> selectProdNeedList(String name,int page,int rows,String sort,String order) {
@@ -150,6 +158,21 @@ public class BackgroundController {
 			jsonMap.put("message", "ok");
 			jsonMap.put("info", "添加需求成功！");
 		}
+		return jsonMap;
+	}
+	
+	@RequestMapping(value="/selectGetPriceUserList")
+	@ResponseBody
+	public Map<String, Object> selectGetPriceUserList(String userName,String phone,String createTimeStart,String createTimeEnd,
+			String pnName,Boolean deal,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		int count=getPriceUserService.selectForInt(userName,phone,createTimeStart,createTimeEnd,pnName,deal);
+		List<GetPriceUser> gpuList=getPriceUserService.selectForList(userName,phone,createTimeStart,createTimeEnd,pnName,deal, page, rows, sort, order);
+
+		jsonMap.put("total", count);
+		jsonMap.put("rows", gpuList);
+			
 		return jsonMap;
 	}
 }
