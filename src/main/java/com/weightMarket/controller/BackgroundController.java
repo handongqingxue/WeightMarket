@@ -1,5 +1,9 @@
 package com.weightMarket.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -13,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.weightMarket.entity.Admin;
+import com.weightMarket.entity.*;
 import com.weightMarket.util.JsonUtil;
 import com.weightMarket.util.PlanResult;
-import com.weightMarket.service.UtilService;
+import com.weightMarket.service.*;
 
 @Controller
 @RequestMapping("/background")
@@ -24,6 +28,8 @@ public class BackgroundController {
 
 	@Autowired
 	private UtilService utilService;
+	@Autowired
+	private ProductNeedService productNeedService;
 	public static final String MODULE_NAME="/background";
 	
 	/**
@@ -98,8 +104,52 @@ public class BackgroundController {
 	}
 	
 	@RequestMapping(value="/sysMgr/sysSet/set")
-	public String goMerchantAllList() {
+	public String goSysMgrSysSetSet() {
 		
 		return MODULE_NAME+"/sysMgr/sysSet/set";
+	}
+	
+	@RequestMapping(value="/fgDataMgr/productNeed/add")
+	public String goFgDataMgrProductNeedAdd() {
+		
+		return MODULE_NAME+"/fgDataMgr/productNeed/add";
+	}
+	
+	@RequestMapping(value="/fgDataMgr/productNeed/list")
+	public String goFgDataMgrProductNeedList() {
+		
+		return MODULE_NAME+"/fgDataMgr/productNeed/list";
+	}
+	
+	@RequestMapping(value="/selectProdNeedList")
+	@ResponseBody
+	public Map<String, Object> selectProdNeedList(String name,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		int count=productNeedService.selectForInt(name);
+		List<ProductNeed> pnList=productNeedService.selectForList(name, page, rows, sort, order);
+
+		jsonMap.put("total", count);
+		jsonMap.put("rows", pnList);
+			
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/addProdNeed")
+	@ResponseBody
+	public Map<String, Object> addProdNeed(ProductNeed pn) {
+
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		int count=productNeedService.add(pn);
+		
+		if(count==0) {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "添加需求失败！");
+		}
+		else {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "添加需求成功！");
+		}
+		return jsonMap;
 	}
 }

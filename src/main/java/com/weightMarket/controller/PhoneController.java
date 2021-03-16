@@ -23,6 +23,8 @@ public class PhoneController {
 	private GetPriceUserService getPriceUserService;
 	@Autowired
 	private ProductTypeUserService productTypeUserService;
+	@Autowired
+	private ProductNeedService productNeedService;
 	
 	@RequestMapping(value="/goIndex")
 	public String goIndex() {
@@ -108,6 +110,24 @@ public class PhoneController {
 		else {
 			jsonMap.put("message", "ok");
 			jsonMap.put("data", ptuList);
+		}
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/selectProdNeedList")
+	@ResponseBody
+	public Map<String, Object> selectProdNeedList() {
+
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		List<ProductNeed> pnList=productNeedService.selectList();
+		
+		if(pnList.size()==0) {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "暂无产品需求");
+		}
+		else {
+			jsonMap.put("message", "ok");
+			jsonMap.put("data", pnList);
 		}
 		return jsonMap;
 	}

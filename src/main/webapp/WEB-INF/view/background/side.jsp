@@ -161,7 +161,7 @@
 					<div class="line_div"></div>
 					<li class="layui-nav-item">
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
-						<a href="<%=basePath%>background/merchantCard/merCardType/list">
+						<a href="<%=basePath%>background/fgDataMgr/productNeed/list">
 							&nbsp;&nbsp;&nbsp;产品需求
 						</a>
 					</li>

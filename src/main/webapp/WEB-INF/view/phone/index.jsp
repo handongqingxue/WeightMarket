@@ -17,9 +17,31 @@ var gpuInterval,zxcykhInterval;
 $(function(){
 	setInterval("moveGPUItemDiv()","3000");
 	setInterval("moveZXCYKHItemDiv()","3000");
+	initPnListDiv();
 	initGPUListDiv();
 	initZxcykhListDiv();
 });
+
+function initPnListDiv(){
+	$.post("selectProdNeedList",
+		function(result){
+			var pnListDiv=$("#pn_list_div");
+			pnListDiv.empty();
+			if(result.message=="ok"){
+				var pnList=result.data;
+				var pnLength=pnList.length;
+				for(var i=0;i<pnLength;i++){
+					var pn=pnList[i];
+					var appendStr="<div class=\"item_div\">";
+						appendStr+="<input type=\"radio\" name=\"pn\" id=\"pn_rad"+pn.id+"\"/>";
+						appendStr+="<span>"+pn.name+"</span>";
+						appendStr+="</div>";
+					pnListDiv.append(appendStr);
+				}
+			}
+		}
+	,"json");
+}
 
 function initGPUListDiv(){
 	$.post("selectGetPriceUserList",
@@ -335,27 +357,13 @@ function showAPTUWarnDiv(show,msg){
 	</div>
 	<div class="product_need_div">
 		<div class="pn_text_span">产品需求<span class="biTian_span">*</span></div>
-		<div class="list_div">
+		<div class="list_div" id="pn_list_div">
+			<!-- 
 			<div class="item_div">
 				<input type="radio" name="pn" id="pn_rad1"/>
 				<span>无人值守地磅称重系统</span>
 			</div>
-			<div class="item_div">
-				<input type="radio" name="pn" id="pn_rad2"/>
-				<span>无人值守地磅称重系统</span>
-			</div>
-			<div class="item_div">
-				<input type="radio" name="pn" id="pn_rad3"/>
-				<span>无人值守地磅称重系统</span>
-			</div>
-			<div class="item_div">
-				<input type="radio" name="pn" id="pn_rad4"/>
-				<span>无人值守地磅称重系统</span>
-			</div>
-			<div class="item_div">
-				<input type="radio" name="pn" id="pn_rad5"/>
-				<span>无人值守地磅称重系统</span>
-			</div>
+			 -->
 		</div>
 		<div class="zdsrlsxx_div">
 			<input type="checkbox"/>

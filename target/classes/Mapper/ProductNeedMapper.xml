@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weightMarket.dao.ProductNeedMapper">
+ 	<insert id="add" parameterType="com.weightMarket.entity.ProductNeed">
+ 		insert into product_need
+ 		<trim prefix="(" suffix=")" suffixOverrides=",">
+ 			<if test="name!=null">
+ 				name,
+ 			</if>
+ 			<if test="describe!=null">
+ 				`describe`,
+ 			</if>
+ 				createTime,
+ 			<if test="sort!=null">
+ 				sort,
+ 			</if>
+ 		</trim>
+ 		values
+ 		<trim prefix="(" suffix=")" suffixOverrides=",">
+ 			<if test="name!=null">
+ 				#{name},
+ 			</if>
+ 			<if test="describe!=null">
+ 				#{describe},
+ 			</if>
+ 				now(),
+ 			<if test="sort!=null">
+ 				#{sort},
+ 			</if>
+ 		</trim>
+ 	</insert>
+	<select id="selectForInt" resultType="java.lang.Integer">
+		select count(*) from product_need where 1=1
+		<if test="name!=''&amp;name!=null">
+			and name like'%${name}%'
+		</if>
+	</select>
+	<select id="selectForList" resultType="com.weightMarket.entity.ProductNeed">
+		select * from product_need where 1=1
+		<if test="name!=''&amp;name!=null">
+			and name like'%${name}%'
+		</if>
+	</select>
+	<select id="selectList" resultType="com.weightMarket.entity.ProductNeed">
+		select * from product_need order by sort
+	</select>
+</mapper>
