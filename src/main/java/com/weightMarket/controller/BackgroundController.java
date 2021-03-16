@@ -129,6 +129,18 @@ public class BackgroundController {
 		return MODULE_NAME+"/fgDataMgr/getPriceUser/list";
 	}
 	
+	@RequestMapping(value="/fgDataMgr/exampleShow/list")
+	public String goFgDataMgrExampleShowList() {
+		
+		return MODULE_NAME+"/fgDataMgr/exampleShow/list";
+	}
+	
+	@RequestMapping(value="/fgDataMgr/productTypeUser/list")
+	public String goFgDataMgrProductTypeUserList() {
+		
+		return MODULE_NAME+"/fgDataMgr/productTypeUser/list";
+	}
+	
 	@RequestMapping(value="/selectProdNeedList")
 	@ResponseBody
 	public Map<String, Object> selectProdNeedList(String name,int page,int rows,String sort,String order) {

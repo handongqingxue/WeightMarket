@@ -13,10 +13,23 @@
 <script type="text/javascript" src="<%=basePath %>resource/js/jquery-3.3.1.js"></script>
 <script type="text/javascript">
 var path='<%=basePath %>';
-var gpuInterval,zxcykhInterval;
+var gpuSmInterval,gpuMmtInterval,zxcykhSmInterval,zxcykhMmtInterval;
+//以下这块代码是防止打开其他窗口时，定时器仍在运行导致滚字幕加速。打开其他窗口时，必须暂停计时器，等切换回来再启动计时器
+//参考链接：https://www.imooc.com/article/39384?block_id=tuijian_wz
+document.onvisibilitychange=function(){   
+	if(document.visibilityState=="visible"){//启动计时器
+		gpuSmInterval=setInterval("moveGPUItemDiv()","3000");
+		zxcykhSmInterval=setInterval("moveZXCYKHItemDiv()","3000");
+	}
+	else{//停止计时器
+		clearInterval(gpuSmInterval);
+		clearInterval(zxcykhSmInterval);
+	} 
+}
+
 $(function(){
-	setInterval("moveGPUItemDiv()","3000");
-	setInterval("moveZXCYKHItemDiv()","3000");
+	gpuSmInterval=setInterval("moveGPUItemDiv()","3000");
+	zxcykhSmInterval=setInterval("moveZXCYKHItemDiv()","3000");
 	initPnListDiv();
 	initGPUListDiv();
 	initZxcykhListDiv();
@@ -122,14 +135,14 @@ function refreshZXCYKH(){
 function moveGPUItemDiv(){
 	var gpuListDiv=$("#gpu_list_div");
 	var itemDiv=gpuListDiv.find(".item_div").eq(0);
-	gpuInterval=setInterval(function(){
+	gpuMmtInterval=setInterval(function(){
 		var marginTop=itemDiv.css("margin-top");
 		marginTop=marginTop.substring(0,marginTop.length-2);
 		//console.log(marginTop);
 		marginTop--;
 		itemDiv.css("margin-top",marginTop+"px");
 		if(marginTop<=-33){
-			clearInterval(gpuInterval);
+			clearInterval(gpuMmtInterval);
 			refreshGPU();
 			itemDiv.css("margin-top","0px");
 		}
@@ -140,14 +153,14 @@ function moveGPUItemDiv(){
 function moveZXCYKHItemDiv(){
 	var zxcykhListDiv=$("#zxcykh_list_div");
 	var itemDiv=zxcykhListDiv.find(".item_div").eq(0);
-	zxcykhInterval=setInterval(function(){
+	zxcykhMmtInterval=setInterval(function(){
 		var marginTop=itemDiv.css("margin-top");
 		marginTop=marginTop.substring(0,marginTop.length-2);
 		//console.log(marginTop);
 		marginTop--;
 		itemDiv.css("margin-top",marginTop+"px");
 		if(marginTop<=-33){
-			clearInterval(zxcykhInterval);
+			clearInterval(zxcykhMmtInterval);
 			refreshZXCYKH();
 			itemDiv.css("margin-top","0px");
 		}
