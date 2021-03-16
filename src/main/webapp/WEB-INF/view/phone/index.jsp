@@ -33,6 +33,7 @@ $(function(){
 	initPnListDiv();
 	initGPUListDiv();
 	initZxcykhListDiv();
+	setTimeout("showNewBridge(false)","1000");//一开始隐藏百度商桥，等点击在线咨询后才显示。因为百度商桥是延迟加载的，必须等一秒后才隐藏
 });
 
 function initPnListDiv(){
@@ -314,6 +315,18 @@ function showAPTUWarnDiv(show,msg){
 		$("#aptu_warn_div").text("");
 	}
 }
+
+function showNewBridge(show){
+	$("#newBridge").css("display",show?"block":"none");
+}
+
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement('script');
+	hm.src = '//hm.baidu.com/hm.js?2d58e7ee2c6bd4eb74b0893c5a3a92a4';
+	var s = document.getElementsByTagName('script')[0];
+	s.parentNode.insertBefore(hm, s);
+})();
 </script>
 <title>营销页面</title>
 <style>
@@ -458,5 +471,6 @@ function showAPTUWarnDiv(show,msg){
 	</div>
 </div>
 <div class="qdhlkjyxgs_div">青岛华凌科技有限公司</div>
+<div class="zxzx_div" onclick="showNewBridge(true)">在线咨询</div>
 </body>
 </html>
