@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weightMarket.dao.ExampleShowMapper">
+	<select id="selectForInt" resultType="java.lang.Integer">
+		select count(*) from example_show where 1=1
+		<if test="name!=''&amp;name!=null">
+			and name like'%${name}%'
+		</if>
+	</select>
+	<select id="selectForList" resultType="com.weightMarket.entity.ExampleShow">
+		select * from example_show where 1=1
+		<if test="name!=''&amp;name!=null">
+			and name like'%${name}%'
+		</if>
+		order by sort limit #{start},#{rows}
+	</select>
+	<insert id="add" parameterType="com.weightMarket.entity.ExampleShow">
+ 		insert into example_show
+ 		<trim prefix="(" suffix=")" suffixOverrides=",">
+ 			<if test="name!=null">
+ 				name,
+ 			</if>
+ 			<if test="imgUrl!=null">
+ 				imgUrl,
+ 			</if>
+ 				createTime,
+ 			<if test="sort!=null">
+ 				sort,
+ 			</if>
+ 		</trim>
+ 		values
+ 		<trim prefix="(" suffix=")" suffixOverrides=",">
+ 			<if test="name!=null">
+ 				#{name},
+ 			</if>
+ 			<if test="imgUrl!=null">
+ 				#{imgUrl},
+ 			</if>
+ 				now(),
+ 			<if test="sort!=null">
+ 				#{sort},
+ 			</if>
+ 		</trim>
+ 	</insert>
+</mapper>

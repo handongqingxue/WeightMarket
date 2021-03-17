@@ -15,11 +15,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.weightMarket.util.FileUploadUtils;
 import com.weightMarket.entity.*;
 import com.weightMarket.util.JsonUtil;
 import com.weightMarket.util.PlanResult;
+
+import net.sf.json.JSONObject;
+
 import com.weightMarket.service.*;
 
 @Controller
@@ -34,6 +40,8 @@ public class BackgroundController {
 	private GetPriceUserService getPriceUserService;
 	@Autowired
 	private ProductTypeUserService productTypeUserService;
+	@Autowired
+	private ExampleShowService exampleShowService;
 	public static final String MODULE_NAME="/background";
 	
 	/**
@@ -131,6 +139,12 @@ public class BackgroundController {
 		return MODULE_NAME+"/fgDataMgr/getPriceUser/list";
 	}
 	
+	@RequestMapping(value="/fgDataMgr/exampleShow/add")
+	public String goFgDataMgrExampleShowAdd() {
+		
+		return MODULE_NAME+"/fgDataMgr/exampleShow/add";
+	}
+	
 	@RequestMapping(value="/fgDataMgr/exampleShow/list")
 	public String goFgDataMgrExampleShowList() {
 		
@@ -174,6 +188,53 @@ public class BackgroundController {
 		}
 		return jsonMap;
 	}
+
+	@RequestMapping(value="/addExampleShow")
+	@ResponseBody
+	public Map<String, Object> addExampleShow(ExampleShow es,
+			@RequestParam(value="imgUrl_file",required=false) MultipartFile imgUrl_file) {
+
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		try {
+			MultipartFile[] fileArr=new MultipartFile[1];
+			fileArr[0]=imgUrl_file;
+			for (int i = 0; i < fileArr.length; i++) {
+				String jsonStr = null;
+				if(fileArr[i].getSize()>0) {
+					String folder=null;
+					switch (i) {
+					case 0:
+						folder="ExampleShow";
+						break;
+					}
+					jsonStr = FileUploadUtils.appUploadContentImg(fileArr[i],folder);
+					JSONObject fileJson = JSONObject.fromObject(jsonStr);
+					if("成功".equals(fileJson.get("msg"))) {
+						JSONObject dataJO = (JSONObject)fileJson.get("data");
+						switch (i) {
+						case 0:
+							es.setImgUrl(dataJO.get("src").toString());
+							break;
+						}
+					}
+				}
+			}
+			int count=exampleShowService.add(es);
+			
+			if(count==0) {
+				jsonMap.put("message", "no");
+				jsonMap.put("info", "添加案例失败！");
+			}
+			else {
+				jsonMap.put("message", "ok");
+				jsonMap.put("info", "添加案例成功！");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jsonMap;
+	}
 	
 	@RequestMapping(value="/selectGetPriceUserList")
 	@ResponseBody
@@ -201,6 +262,20 @@ public class BackgroundController {
 
 		jsonMap.put("total", count);
 		jsonMap.put("rows", ptuList);
+			
+		return jsonMap;
+	}
+	
+	@RequestMapping(value="/selectExampleShowList")
+	@ResponseBody
+	public Map<String, Object> selectExampleShowList(String name,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		int count=exampleShowService.selectForInt(name);
+		List<ExampleShow> esList=exampleShowService.selectForList(name, page, rows, sort, order);
+
+		jsonMap.put("total", count);
+		jsonMap.put("rows", esList);
 			
 		return jsonMap;
 	}
