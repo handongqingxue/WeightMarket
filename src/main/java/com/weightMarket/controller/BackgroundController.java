@@ -145,6 +145,16 @@ public class BackgroundController {
 		return MODULE_NAME+"/fgDataMgr/exampleShow/add";
 	}
 	
+	@RequestMapping(value="/fgDataMgr/exampleShow/edit")
+	public String goFgDataMgrExampleShowEdit(HttpServletRequest request) {
+
+		String id = request.getParameter("id");
+		ExampleShow exampleShow=exampleShowService.getById(id);
+		request.setAttribute("exampleShow", exampleShow);
+		
+		return MODULE_NAME+"/fgDataMgr/exampleShow/edit";
+	}
+	
 	@RequestMapping(value="/fgDataMgr/exampleShow/list")
 	public String goFgDataMgrExampleShowList() {
 		
@@ -228,6 +238,53 @@ public class BackgroundController {
 			else {
 				jsonMap.put("message", "ok");
 				jsonMap.put("info", "添加案例成功！");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/editExampleShow")
+	@ResponseBody
+	public Map<String, Object> editExampleShow(ExampleShow es,
+			@RequestParam(value="imgUrl_file",required=false) MultipartFile imgUrl_file) {
+
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		try {
+			MultipartFile[] fileArr=new MultipartFile[1];
+			fileArr[0]=imgUrl_file;
+			for (int i = 0; i < fileArr.length; i++) {
+				String jsonStr = null;
+				if(fileArr[i].getSize()>0) {
+					String folder=null;
+					switch (i) {
+					case 0:
+						folder="ExampleShow";
+						break;
+					}
+					jsonStr = FileUploadUtils.appUploadContentImg(fileArr[i],folder);
+					JSONObject fileJson = JSONObject.fromObject(jsonStr);
+					if("成功".equals(fileJson.get("msg"))) {
+						JSONObject dataJO = (JSONObject)fileJson.get("data");
+						switch (i) {
+						case 0:
+							es.setImgUrl(dataJO.get("src").toString());
+							break;
+						}
+					}
+				}
+			}
+			int count=exampleShowService.edit(es);
+			
+			if(count==0) {
+				jsonMap.put("message", "no");
+				jsonMap.put("info", "编辑案例失败！");
+			}
+			else {
+				jsonMap.put("message", "ok");
+				jsonMap.put("info", "编辑案例成功！");
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

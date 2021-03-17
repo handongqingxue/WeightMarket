@@ -12,4 +12,8 @@ public interface ExampleShowService {
 
 	int add(ExampleShow es);
 
+	ExampleShow getById(String id);
+
+	int edit(ExampleShow es);
+
 }

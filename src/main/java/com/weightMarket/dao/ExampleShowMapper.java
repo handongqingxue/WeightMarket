@@ -15,4 +15,8 @@ public interface ExampleShowMapper {
 
 	int add(ExampleShow es);
 
+	ExampleShow getById(@Param("id") String id);
+
+	int edit(ExampleShow es);
+
 }

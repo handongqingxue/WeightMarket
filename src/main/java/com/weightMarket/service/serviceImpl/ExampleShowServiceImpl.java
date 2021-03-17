@@ -30,4 +30,14 @@ public class ExampleShowServiceImpl implements ExampleShowService {
 		return exampleShowDao.add(es);
 	}
 
+	public ExampleShow getById(String id) {
+		// TODO Auto-generated method stub
+		return exampleShowDao.getById(id);
+	}
+
+	public int edit(ExampleShow es) {
+		// TODO Auto-generated method stub
+		return exampleShowDao.edit(es);
+	}
+
 }

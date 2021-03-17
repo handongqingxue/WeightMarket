@@ -54,9 +54,8 @@ function initTab1(){
 			}},
             {field:"createTime",title:"创建时间",width:150},
             {field:"id",title:"操作",width:110,formatter:function(value,row){
-            	//var str="<a onclick=\"checkById('1','"+value+"')\">通过</a>&nbsp;&nbsp;"
-            		//+"<a onclick=\"checkById('2','"+value+"')\">不通过</a>";
-            	var str="<a href=\"detail?id="+value+"\">详情</a>";
+            	var str="<a href=\"edit?id="+value+"\">编辑</a>&nbsp;&nbsp;";
+            		str+="<a href=\"detail?id="+value+"\">详情</a>";
             	return str;
             }}
 	    ]],

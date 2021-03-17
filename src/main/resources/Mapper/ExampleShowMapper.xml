@@ -44,4 +44,22 @@
  			</if>
  		</trim>
  	</insert>
+ 	<select id="getById" resultType="com.weightMarket.entity.ExampleShow">
+ 		select * from example_show where id=#{id}
+ 	</select>
+ 	<update id="edit" parameterType="com.weightMarket.entity.ExampleShow">
+ 		update example_show set
+		<trim suffixOverrides=",">
+			<if test="name!=null">
+				name=#{name},
+			</if>
+			<if test="imgUrl!=null">
+				imgUrl=#{imgUrl},
+			</if>
+			<if test="sort!=null">
+				sort=#{sort},
+			</if>
+		</trim>
+		where id=#{id}
+ 	</update>
 </mapper>

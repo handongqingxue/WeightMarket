@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>添加需求</title>
+<title>案例编辑</title>
 <%@include file="../../js.jsp"%>
 <style type="text/css">
 .center_con_div{
@@ -40,76 +40,76 @@ var path='<%=basePath %>';
 var bgPath='<%=basePath%>'+"background/";
 var dialogTop=10;
 var dialogLeft=20;
-var ndNum=0;
+var edNum=0;
 $(function(){
-	initNewDialog();
+	initEditDialog();
 
 	initDialogPosition();//将不同窗体移动到主要内容区域
 });
 
 function initDialogPosition(){
 	//基本属性组
-	var ndpw=$("body").find(".panel.window").eq(ndNum);
-	var ndws=$("body").find(".window-shadow").eq(ndNum);
+	var edpw=$("body").find(".panel.window").eq(edNum);
+	var edws=$("body").find(".window-shadow").eq(edNum);
 
 	var ccDiv=$("#center_con_div");
-	ccDiv.append(ndpw);
-	ccDiv.append(ndws);
+	ccDiv.append(edpw);
+	ccDiv.append(edws);
 }
 
-function initNewDialog(){
+function initEditDialog(){
 	dialogTop+=20;
-	$("#new_div").dialog({
+	$("#edit_div").dialog({
 		title:"案例信息",
-		width:setFitWidthInParent("body","new_div"),
-		height:395,
+		width:setFitWidthInParent("body","edit_div"),
+		height:400,
 		top:dialogTop,
 		left:dialogLeft,
 		buttons:[
-           {text:"保存",id:"ok_but",iconCls:"icon-ok",handler:function(){
-        	   checkAdd();
+           {text:"提交",id:"ok_but",iconCls:"icon-ok",handler:function(){
+        	   checkInfo();
            }}
         ]
 	});
 
-	$("#new_div table").css("width",(setFitWidthInParent("body","new_div_table"))+"px");
-	$("#new_div table").css("magin","-100px");
-	$("#new_div table td").css("padding-left","50px");
-	$("#new_div table td").css("padding-right","20px");
-	$("#new_div table td").css("font-size","15px");
-	$("#new_div table tr").each(function(i){
+	$("#edit_div table").css("width",(setFitWidthInParent("body","edit_div_table"))+"px");
+	$("#edit_div table").css("magin","-100px");
+	$("#edit_div table td").css("padding-left","50px");
+	$("#edit_div table td").css("padding-right","20px");
+	$("#edit_div table td").css("font-size","15px");
+	$("#edit_div table tr").each(function(i){
 		$(this).css("height",(i==1?250:45)+"px");
 	});
 
-	$(".panel.window").eq(ndNum).css("margin-top","20px");
-	$(".panel.window .panel-title").eq(ndNum).css("color","#000");
-	$(".panel.window .panel-title").eq(ndNum).css("font-size","15px");
-	$(".panel.window .panel-title").eq(ndNum).css("padding-left","10px");
+	$(".panel.window").eq(edNum).css("margin-top","20px");
+	$(".panel.window .panel-title").eq(edNum).css("color","#000");
+	$(".panel.window .panel-title").eq(edNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(edNum).css("padding-left","10px");
 	
 	$(".panel-header, .panel-body").css("border-color","#ddd");
 	
 	//以下的是表格下面的面板
-	$(".window-shadow").eq(ndNum).css("margin-top","20px");
-	$(".window,.window .window-body").eq(ndNum).css("border-color","#ddd");
+	$(".window-shadow").eq(edNum).css("margin-top","20px");
+	$(".window,.window .window-body").eq(edNum).css("border-color","#ddd");
 
-	$("#new_div #ok_but").css("left","45%");
-	$("#new_div #ok_but").css("position","absolute");
+	$("#edit_div #ok_but").css("left","45%");
+	$("#edit_div #ok_but").css("position","absolute");
 	
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 }
 
-function checkAdd(){
+function checkInfo(){
 	if(checkName()){
-		addExampleShow();
+		editExampleShow();
 	}
 }
 
-function addExampleShow(){
+function editExampleShow(){
 	var formData = new FormData($("#form1")[0]);
 	$.ajax({
 		type:"post",
-		url:bgPath+"addExampleShow",
+		url:bgPath+"editExampleShow",
 		dataType: "json",
 		data:formData,
 		cache: false,
@@ -135,7 +135,7 @@ function focusName(){
 	}
 }
 
-//验证案例名称
+//验证名称
 function checkName(){
 	var name = $("#name").val();
 	if(name==null||name==""||name=="案例名称不能为空"){
@@ -176,10 +176,10 @@ function showImgUrl(obj){
 function setFitWidthInParent(parent,self){
 	var space=0;
 	switch (self) {
-	case "new_div":
+	case "edit_div":
 		space=340;
 		break;
-	case "new_div_table":
+	case "edit_div_table":
 	case "panel_window":
 		space=355;
 		break;
@@ -190,46 +190,47 @@ function setFitWidthInParent(parent,self){
 </script>
 </head>
 <body>
-<div class="layui-layout layui-layout-admin">	
-<%@include file="../../side.jsp"%>
-<div class="center_con_div" id="center_con_div">
-	<div class="page_location_div">添加案例</div>
-	
-	<div id="new_div">
-	<form id="form1" name="form1" method="post" action="" enctype="multipart/form-data">
-		<table>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right" style="width:15%;">
-				案例名称
-			</td>
-			<td style="width:30%;">
-				<input type="text" id="name" name="name" placeholder="请输入案例名称" style="width: 150px;height:30px;" onfocus="focusName()" onblur="checkName()"/>
-			</td>
-			<td align="right" style="width:15%;">
-				排序
-			</td>
-			<td style="width:30%;">
-				<input type="number" id="sort" name="sort" placeholder="请输入排序" style="width: 150px;height:30px;"/>
-			</td>
-		  </tr>
-		  <tr style="border-bottom: #CAD9EA solid 1px;">
-			<td align="right" style="width:15%;">
-				图片
-			</td>
-			<td style="width:30%;">
-				<div class="upLoBut_div" onclick="uploadImgUrl()">选择案例图片</div>
-				<input type="file" id="imgUrl_file" name="imgUrl_file" style="display: none;" onchange="showImgUrl(this)"/>
-				<img class="imgUrl_img" id="imgUrl_img" alt="" src=""/>
-			</td>
-			<td align="right" style="width:15%;">
-			</td>
-			<td style="width:30%;">
-			</td>
-		  </tr>
-		</table>
-	</form>
-	</div>
-	<%@include file="../../foot.jsp"%>
+<div class="layui-layout layui-layout-admin">
+	<%@include file="../../side.jsp"%>
+	<div class="center_con_div" id="center_con_div">
+		<div class="page_location_div">案例编辑</div>
+		
+		<div id="edit_div">
+		<form id="form1" name="form1" method="post" action="" enctype="multipart/form-data">
+			<input type="hidden" name="id" value="${requestScope.exampleShow.id }"/>
+			<table>
+			  <tr style="border-bottom: #CAD9EA solid 1px;">
+				<td align="right" style="width:15%;">
+					案例名称
+				</td>
+				<td style="width:30%;">
+					<input type="text" id="name" name="name" value="${requestScope.exampleShow.name }" placeholder="请输入案例名称" style="width: 180px;height:30px;" onfocus="focusName()" onblur="checkName()"/>
+				</td>
+				<td align="right" style="width:15%;">
+					排序
+				</td>
+				<td style="width:30%;">
+					<input type="number" id="sort" name="sort" value="${requestScope.exampleShow.sort }" placeholder="请输入排序" style="width: 180px;height:30px;"/>
+				</td>
+			  </tr>
+			  <tr style="border-bottom: #CAD9EA solid 1px;">
+				<td align="right" style="width:15%;">
+					图片
+				</td>
+				<td style="width:30%;">
+					<div class="upLoBut_div" onclick="uploadImgUrl()">选择案例图片</div>
+					<input type="file" id="imgUrl_file" name="imgUrl_file" style="display: none;" onchange="showImgUrl(this)"/>
+					<img class="imgUrl_img" id="imgUrl_img" alt="" src="${requestScope.exampleShow.imgUrl }"/>
+				</td>
+				<td align="right" style="width:15%;">
+				</td>
+				<td style="width:30%;">
+				</td>
+			  </tr>
+			</table>
+		</form>
+		</div>
+		<%@include file="../../foot.jsp"%>
 	</div>
 </div>
 </body>
