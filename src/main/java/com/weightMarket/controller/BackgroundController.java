@@ -42,6 +42,8 @@ public class BackgroundController {
 	private ProductTypeUserService productTypeUserService;
 	@Autowired
 	private ExampleShowService exampleShowService;
+	@Autowired
+	private SystemInfoService systemInfoService;
 	public static final String MODULE_NAME="/background";
 	
 	/**
@@ -188,6 +190,24 @@ public class BackgroundController {
 		jsonMap.put("total", count);
 		jsonMap.put("rows", pnList);
 			
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/editSystemInfo")
+	@ResponseBody
+	public Map<String, Object> editSystemInfo(SystemInfo si) {
+
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		int count=systemInfoService.edit(si);
+		
+		if(count==0) {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "±‡º≠…Ë÷√ ß∞‹£°");
+		}
+		else {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "±‡º≠…Ë÷√≥…π¶£°");
+		}
 		return jsonMap;
 	}
 

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weightMarket.dao.SystemInfoMapper">
+ 	<update id="edit" parameterType="com.weightMarket.entity.SystemInfo">
+ 		update system_info set
+		<trim suffixOverrides=",">
+			<if test="grxxsq!=null">
+				grxxsq=#{grxxsq},
+			</if>
+			<if test="yszc!=null">
+				yszc=#{yszc},
+			</if>
+			<if test="companyName!=null">
+				companyName=#{companyName},
+			</if>
+			<if test="contactTel!=null">
+				contactTel=#{contactTel},
+			</if>
+			<if test="contactAddress!=null">
+				contactAddress=#{contactAddress},
+			</if>
+		</trim>
+ 	</update>
+</mapper>
