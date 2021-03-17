@@ -161,6 +161,16 @@ public class BackgroundController {
 		return MODULE_NAME+"/fgDataMgr/exampleShow/list";
 	}
 	
+	@RequestMapping(value="/fgDataMgr/exampleShow/detail")
+	public String goFgDataMgrExampleShowDetail(HttpServletRequest request) {
+
+		String id = request.getParameter("id");
+		ExampleShow exampleShow=exampleShowService.getById(id);
+		request.setAttribute("exampleShow", exampleShow);
+		
+		return MODULE_NAME+"/fgDataMgr/exampleShow/detail";
+	}
+	
 	@RequestMapping(value="/fgDataMgr/productTypeUser/list")
 	public String goFgDataMgrProductTypeUserList() {
 		
