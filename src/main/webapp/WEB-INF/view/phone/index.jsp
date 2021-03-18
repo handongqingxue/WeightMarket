@@ -327,6 +327,21 @@ var _hmt = _hmt || [];
 	var s = document.getElementsByTagName('script')[0];
 	s.parentNode.insertBefore(hm, s);
 })();
+
+function openChatDialog(){
+	//https://blog.csdn.net/p445098355/article/details/104272962
+    var system ={};  
+	var p = navigator.platform;       
+	system.win = p.indexOf("Win") == 0;  
+	system.mac = p.indexOf("Mac") == 0;  
+	system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);     
+	if(system.win||system.mac||system.xll){//如果是电脑跳转到
+	   $("ins[data-id='313568']").click();
+	}
+	else{//如果是手机,跳转到
+	   $("ins[id='nb_invite_ok']").click();
+	}
+}
 </script>
 <title>营销页面</title>
 <style>
@@ -471,6 +486,6 @@ var _hmt = _hmt || [];
 	</div>
 </div>
 <div class="qdhlkjyxgs_div">青岛华凌科技有限公司</div>
-<div class="zxzx_div" onclick="showNewBridge(true)">在线咨询</div>
+<div class="zxzx_div" onclick="openChatDialog()">在线咨询</div>
 </body>
 </html>
