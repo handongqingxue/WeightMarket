@@ -62,4 +62,7 @@
 		</trim>
 		where id=#{id}
  	</update>
+ 	<select id="selectList" resultType="com.weightMarket.entity.ExampleShow">
+ 		select * from example_show order by sort
+ 	</select>
 </mapper>

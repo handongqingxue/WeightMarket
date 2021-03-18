@@ -40,4 +40,9 @@ public class ExampleShowServiceImpl implements ExampleShowService {
 		return exampleShowDao.edit(es);
 	}
 
+	public List<ExampleShow> selectList() {
+		// TODO Auto-generated method stub
+		return exampleShowDao.selectList();
+	}
+
 }

@@ -16,4 +16,6 @@ public interface ExampleShowService {
 
 	int edit(ExampleShow es);
 
+	List<ExampleShow> selectList();
+
 }

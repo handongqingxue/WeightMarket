@@ -19,4 +19,6 @@ public interface ExampleShowMapper {
 
 	int edit(ExampleShow es);
 
+	List<ExampleShow> selectList();
+
 }

@@ -13,7 +13,6 @@ import com.weightMarket.service.*;
 import com.weightMarket.entity.*;
 import com.weightMarket.util.JsonUtil;
 import com.weightMarket.util.PlanResult;
-import com.weightMarket.entity.GetPriceUser;
 
 @Controller
 @RequestMapping("/phone")
@@ -25,6 +24,10 @@ public class PhoneController {
 	private ProductTypeUserService productTypeUserService;
 	@Autowired
 	private ProductNeedService productNeedService;
+	@Autowired
+	private SystemInfoService systemInfoService;
+	@Autowired
+	private ExampleShowService exampleShowService;
 	
 	@RequestMapping(value="/goIndex")
 	public String goIndex() {
@@ -128,6 +131,42 @@ public class PhoneController {
 		else {
 			jsonMap.put("message", "ok");
 			jsonMap.put("data", pnList);
+		}
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/selectExampleShowList")
+	@ResponseBody
+	public Map<String, Object> selectExampleShowList() {
+
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		List<ExampleShow> esList=exampleShowService.selectList();
+		
+		if(esList.size()==0) {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "暂无案例展示");
+		}
+		else {
+			jsonMap.put("message", "ok");
+			jsonMap.put("data", esList);
+		}
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/getSystemInfo")
+	@ResponseBody
+	public Map<String, Object> getSystemInfo() {
+
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		SystemInfo systemInfo = systemInfoService.get();
+		
+		if(systemInfo==null) {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "暂无信息");
+		}
+		else {
+			jsonMap.put("message", "ok");
+			jsonMap.put("systemInfo", systemInfo);
 		}
 		return jsonMap;
 	}

@@ -33,6 +33,8 @@ $(function(){
 	initPnListDiv();
 	initGPUListDiv();
 	initZxcykhListDiv();
+	initAlzsListDiv();
+	initSystemInfo();
 	setTimeout("showNewBridge(false)","1000");//一开始隐藏百度商桥，等点击在线咨询后才显示。因为百度商桥是延迟加载的，必须等一秒后才隐藏
 });
 
@@ -110,6 +112,53 @@ function initZxcykhListDiv(){
 			}
 			else{
 				$("#cpzlqq_div #ytj_span").text(0);
+			}
+		}
+	,"json");
+}
+
+function initAlzsListDiv(){
+	$.post("selectExampleShowList",
+		function(result){
+			var alzsListDiv=$("#alzs_list_div");
+			alzsListDiv.empty();
+			if(result.message=="ok"){
+				var marginTop;
+				var marginLeft;
+				var esList=result.data;
+				for(var i=0;i<esList.length;i++){
+					if(i==0){
+						marginTop=0;
+						marginLeft=0;
+					}
+					else if(i%2==1){
+						marginTop=-130;
+						marginLeft=170;
+					}
+					else if(i%2==0){
+						marginTop=23;
+						marginLeft=0;
+					}
+					var es=esList[i];
+					var appendStr="<div class=\"item_div\" style=\"margin-top:"+marginTop+"px;margin-left:"+marginLeft+"px;\">";
+						appendStr+="<img class=\"alzs_img\" src=\""+es.imgUrl+"\"/>";
+						appendStr+="<div class=\"text_div\">"+es.name+"</div>";
+						appendStr+="</div>";
+					alzsListDiv.append(appendStr);
+				}
+			}
+		}
+	,"json");
+}
+
+function initSystemInfo(){
+	$.post("getSystemInfo",
+		function(data){
+			if(data.message=="ok"){
+				var systemInfo=data.systemInfo;
+				$("#gsmc_div").text("公司名称："+systemInfo.companyName);
+				$("#lxdh_div").text("联系电话："+systemInfo.contactTel+"（微信同号）");
+				$("#lxdz_div").text("联系地址："+systemInfo.contactAddress);
 			}
 		}
 	,"json");
@@ -457,7 +506,8 @@ function openChatDialog(){
 <div class="alzs_div">
 	<div class="title_div">案例展示</div>
 	<div class="desc_div">集众人智慧，聚众人合力</div>
-	<div class="list_div">
+	<div class="list_div" id="alzs_list_div">
+		<!-- 
 		<div class="item_div">
 			<img class="alzs_img" src="<%=basePath %>resource/image/202103100003.png"/>
 			<div class="text_div">索通发展有限公司</div>
@@ -474,15 +524,16 @@ function openChatDialog(){
 			<img class="alzs_img" src="<%=basePath %>resource/image/202103100006.png"/>
 			<div class="text_div">其他</div>
 		</div>
+		 -->
 	</div>
 </div>
 <div class="lxwm_div">
 	<div class="title_div">联系我们</div>
 	<div class="desc_div">集众人智慧，聚众人合力</div>
 	<div class="lxxx_div">
-		<div class="gsmc_div">公司名称：青岛华凌科技有限公司</div>
-		<div class="lxdh_div">联系电话：15712773653（微信同号）</div>
-		<div class="lxdz_div">联系地址：山东省青岛市黄岛区双珠路288号东方金石大厦8F</div>
+		<div class="gsmc_div" id="gsmc_div"></div>
+		<div class="lxdh_div" id="lxdh_div"></div>
+		<div class="lxdz_div" id="lxdz_div"></div>
 	</div>
 </div>
 <div class="qdhlkjyxgs_div">青岛华凌科技有限公司</div>
