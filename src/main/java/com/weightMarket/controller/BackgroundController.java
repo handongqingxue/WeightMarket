@@ -118,7 +118,10 @@ public class BackgroundController {
 	}
 	
 	@RequestMapping(value="/sysMgr/sysSet/set")
-	public String goSysMgrSysSetSet() {
+	public String goSysMgrSysSetSet(HttpServletRequest request) {
+		
+		SystemInfo systemInfo=systemInfoService.get();
+		request.setAttribute("systemInfo", systemInfo);
 		
 		return MODULE_NAME+"/sysMgr/sysSet/set";
 	}

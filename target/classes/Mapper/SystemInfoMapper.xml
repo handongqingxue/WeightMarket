@@ -3,6 +3,44 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.weightMarket.dao.SystemInfoMapper">
+ 	<insert id="add" parameterType="com.weightMarket.entity.SystemInfo">
+ 		insert into system_info
+ 		<trim prefix="(" suffix=")" suffixOverrides=",">
+ 			<if test="grxxsq!=null">
+ 				grxxsq,
+ 			</if>
+ 			<if test="yszc!=null">
+ 				yszc,
+ 			</if>
+ 			<if test="companyName!=null">
+ 				companyName,
+ 			</if>
+ 			<if test="contactTel!=null">
+ 				contactTel,
+ 			</if>
+ 			<if test="contactAddress!=null">
+ 				contactAddress,
+ 			</if>
+ 		</trim>
+ 		values
+ 		<trim prefix="(" suffix=")" suffixOverrides=",">
+ 			<if test="grxxsq!=null">
+ 				#{grxxsq},
+ 			</if>
+ 			<if test="yszc!=null">
+ 				#{yszc},
+ 			</if>
+ 			<if test="companyName!=null">
+ 				#{companyName},
+ 			</if>
+ 			<if test="contactTel!=null">
+ 				#{contactTel},
+ 			</if>
+ 			<if test="contactAddress!=null">
+ 				#{contactAddress},
+ 			</if>
+ 		</trim>
+ 	</insert>
  	<update id="edit" parameterType="com.weightMarket.entity.SystemInfo">
  		update system_info set
 		<trim suffixOverrides=",">
@@ -23,4 +61,10 @@
 			</if>
 		</trim>
  	</update>
+ 	<select id="getCount" resultType="java.lang.Integer">
+ 		select count(*) from system_info
+ 	</select>
+ 	<select id="get" resultType="com.weightMarket.entity.SystemInfo">
+ 		select * from system_info
+ 	</select>
 </mapper>

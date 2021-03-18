@@ -113,7 +113,7 @@ function setFitWidthInParent(o){
 		<div style="font-size: 20px;color: #373737;font-weight:700;">信息授权与隐私政策设置</div>
 		<div style="margin-top:40px;">
 			<div style="font-size: 15px;color: #373737;font-weight: 700;">信&nbsp;&nbsp;息&nbsp;&nbsp;&nbsp;授&nbsp;&nbsp;权</div>
-			<div style="margin-top:10px;font-size: 15px;">aaa${requestScope.accountMsg.companyName }</div>
+			<div style="margin-top:10px;font-size: 15px;">${requestScope.systemInfo.grxxsq }</div>
 		</div>
 		<div style="margin-top:40px;">
 			<span style="font-size: 15px;color: #357bb3;cursor: pointer;" onclick="openEditXxsqDialog(1)">修改信息授权</span>

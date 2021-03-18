@@ -6,4 +6,6 @@ public interface SystemInfoService {
 
 	int edit(SystemInfo si);
 
+	SystemInfo get();
+
 }

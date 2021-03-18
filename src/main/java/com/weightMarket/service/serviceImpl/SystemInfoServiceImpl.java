@@ -15,7 +15,16 @@ public class SystemInfoServiceImpl implements SystemInfoService {
 	
 	public int edit(SystemInfo si) {
 		// TODO Auto-generated method stub
-		return 0;
+		int count=systemInfoDao.getCount();
+		if(count==0)
+			return systemInfoDao.add(si);
+		else
+			return systemInfoDao.edit(si);
+	}
+
+	public SystemInfo get() {
+		// TODO Auto-generated method stub
+		return systemInfoDao.get();
 	}
 
 }

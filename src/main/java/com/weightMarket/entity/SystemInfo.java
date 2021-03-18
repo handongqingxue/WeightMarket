@@ -2,7 +2,7 @@ package com.weightMarket.entity;
 
 public class SystemInfo {
 
-	private String grxxsq;
+	private String grxxsq;//个人信息授权
 	public String getGrxxsq() {
 		return grxxsq;
 	}
@@ -33,7 +33,7 @@ public class SystemInfo {
 	public void setContactAddress(String contactAddress) {
 		this.contactAddress = contactAddress;
 	}
-	private String yszc;
+	private String yszc;//隐私政策
 	private String companyName;
 	private String contactTel;
 	private String contactAddress;
