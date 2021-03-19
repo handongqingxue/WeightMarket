@@ -11,9 +11,7 @@
 	background-color: rgba(0,0,0,.45);
 	position: fixed;
 	z-index: 9016;
-	/*
 	display:none;
-	*/
 }
 .deal_gpu_div{
 	width: 1000px;
@@ -95,7 +93,7 @@ function initDealGPUJBSXZDialog(){
         	   openDealGPUDialog(0);
            }},
            {text:"保存",id:"ok_but",iconCls:"icon-save",handler:function(){
-        	    editYSS();
+        	    dealById();
            }}
         ]
 	});
@@ -127,7 +125,7 @@ function initDealGPUJBSXZDialog(){
 	$("#deal_gpu_jbsxz_dialog_div #ok_but").css("position","absolute");
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
-	//openDealGPUJBSXZDialog(0);
+	openDealGPUJBSXZDialog(0);
 }
 
 function openDealGPUDialog(flag){
@@ -135,6 +133,7 @@ function openDealGPUDialog(flag){
 		$("#deal_gpu_bg_div").css("display","block");
 	}
 	else{
+		initDealGPUDiaValue(null);
 		$("#deal_gpu_bg_div").css("display","none");
 	}
 	openDealGPUJBSXZDialog(flag);
@@ -162,7 +161,7 @@ function initCTEDTB(){
 }
 
 function initDealCBB(){
-	dealCBB=$("#deal_cbb").combobox({
+	dealCBB=$("#toolbar #deal_cbb").combobox({
 		valueField:"value",
 		textField:"text",
 		//multiple:true,
@@ -198,9 +197,10 @@ function initTab1(){
 			{field:"phone",title:"手机号",width:150},
 			{field:"pnName",title:"需求名称",width:200},
             {field:"createTime",title:"创建时间",width:150},
-            {field:"deal",title:"处理情况",width:150,formatter:function(value,row){
+            {field:"deal",title:"处理情况",width:80,formatter:function(value,row){
             	return (value?"已":"未")+"处理";
             }},
+			{field:"memo",title:"备注",width:300},
             {field:"id",title:"操作",width:110,formatter:function(value,row){
             	//var str="<a onclick=\"checkById('1','"+value+"')\">通过</a>&nbsp;&nbsp;"
             		//+"<a onclick=\"checkById('2','"+value+"')\">不通过</a>";
@@ -211,7 +211,7 @@ function initTab1(){
         onLoadSuccess:function(data){
 			if(data.total==0){
 				$(this).datagrid("appendRow",{userName:"<div style=\"text-align:center;\">暂无信息<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"userName",colspan:6});
+				$(this).datagrid("mergeCells",{index:0,field:"userName",colspan:7});
 				data.total=0;
 			}
 			
@@ -230,23 +230,56 @@ function dealGPUTabRow(){
 		$.messager.alert("提示","请选择要处理的信息！","warning");
 		return false;
 	}
-	$("#deal_gpu_div #id").val(row.id);
-	$("#deal_gpu_div #userName").text(row.userName);
-	$("#deal_gpu_div #phone").text(row.phone);
-	$("#deal_gpu_div #pnName").text(row.pnName);
-	$("#deal_gpu_div #createTime").text(row.createTime);
-	alert(row.deal)
-	dealDCBB.combobox("setValue",row.deal);
-	$("#deal_gpu_div #memo").val(row.memo);
+	initDealGPUDiaValue(row);
 	openDealGPUDialog(1);
 }
 
+function initDealGPUDiaValue(row){
+	if(row==null){
+		$("#deal_gpu_div #id").val("");
+		$("#deal_gpu_div #userName").text("");
+		$("#deal_gpu_div #phone").text("");
+		$("#deal_gpu_div #pnName").text("");
+		$("#deal_gpu_div #createTime").text("");
+		dealDCBB.combobox("setValue","");
+		$("#deal_gpu_div #memo").val("");
+	}
+	else{
+		$("#deal_gpu_div #id").val(row.id);
+		$("#deal_gpu_div #userName").text(row.userName);
+		$("#deal_gpu_div #phone").text(row.phone);
+		$("#deal_gpu_div #pnName").text(row.pnName);
+		$("#deal_gpu_div #createTime").text(row.createTime);
+		dealDCBB.combobox("setValue",row.deal?"1":"0");
+		$("#deal_gpu_div #memo").val(row.memo);
+	}
+}
+
 function initDealDialogCBB(){
-	dealDCBB=$("#deal_cbb").combobox({
+	dealDCBB=$("#deal_gpu_jbsxz_dialog_div #deal_cbb").combobox({
 		valueField:"value",
 		textField:"text",
 		data:[{"value":"","text":"请选择处理状态"},{"value":"1","text":"已处理"},{"value":"0","text":"未处理"}]
 	});
+}
+
+function dealById(){
+	var id=$("#deal_gpu_div #id").val();
+	var deal=dealDCBB.combobox("getValue")=="1"?true:false;
+	var memo=$("#deal_gpu_div #memo").val();
+	$.post(bgPath+"dealGPUById",
+		{id:id,deal:deal,memo:memo},
+		function(data){
+			if(data.message=="ok"){
+				alert(data.info);
+				openDealGPUDialog(0);
+				tab1.datagrid("load");
+			}
+			else{
+				alert(data.info);
+			}
+		}
+	,"json");
 }
 
 function setFitWidthInParent(o){

@@ -33,7 +33,7 @@
  				0
  		</trim>
  	</insert>
- 	<select id="selectGetPriceUserList" resultType="com.weightMarket.entity.GetPriceUser">
+ 	<select id="selectList" resultType="com.weightMarket.entity.GetPriceUser">
  		select CONCAT(left(userName,1),'**') xhUserName,CONCAT(left(phone,3),'******',right(phone,2)) xhPhone,UNIX_TIMESTAMP(now())- UNIX_TIMESTAMP(createTime) secondAgo from get_price_user where 1=1
  		<if test="deal!=''&amp;deal!=null">
  			deal=#{deal}
@@ -59,7 +59,7 @@
  		</if>
  	</select>
  	<select id="selectForList" resultType="com.weightMarket.entity.GetPriceUser">
- 		select gpu.id,gpu.userName,gpu.phone,gpu.createTime,pn.name pnName,gpu.deal from get_price_user gpu left join product_need pn on gpu.pnId=pn.id where 1=1
+ 		select gpu.id,gpu.userName,gpu.phone,gpu.createTime,pn.name pnName,gpu.deal,gpu.memo from get_price_user gpu left join product_need pn on gpu.pnId=pn.id where 1=1
  		<if test="userName!=''&amp;userName!=null">
 			and gpu.userName like'%${userName}%'
 		</if>
@@ -77,4 +77,16 @@
  		</if>
  		order by gpu.createTime desc limit #{start},#{rows}
  	</select>
+ 	<update id="dealById">
+ 		update get_price_user set
+		<trim suffixOverrides=",">
+			<if test="deal!=null">
+				deal=#{deal},
+			</if>
+			<if test="memo!=null">
+				memo=#{memo},
+			</if>
+		</trim>
+		where id=#{id}
+ 	</update>
 </mapper>

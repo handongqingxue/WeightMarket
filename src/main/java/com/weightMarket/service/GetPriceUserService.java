@@ -8,11 +8,13 @@ public interface GetPriceUserService {
 
 	int add(GetPriceUser gpu);
 
-	List<GetPriceUser> selectGetPriceUserList(Boolean deal);
+	List<GetPriceUser> selectList(Boolean deal);
 
-	int selectForInt(String userName, String phone, String createTimeStart, String createTimeEnd, String pnName, Boolean deal);
+	int selectForInt(String userName, String phone, String createTimeStart, String createTimeEnd, String pnName, String deal);
 
 	List<GetPriceUser> selectForList(String userName, String phone, String createTimeStart, String createTimeEnd, String pnName,
-			Boolean deal, int page, int rows, String sort, String order);
+			String deal, int page, int rows, String sort, String order);
+
+	int dealById(Boolean deal, String memo, Integer id);
 
 }

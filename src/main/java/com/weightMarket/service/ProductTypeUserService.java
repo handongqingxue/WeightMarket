@@ -8,7 +8,7 @@ public interface ProductTypeUserService {
 
 	int add(ProductTypeUser gpu);
 
-	List<ProductTypeUser> selectProductTypeUserList(Boolean deal);
+	List<ProductTypeUser> selectList(Boolean deal);
 
 	int selectForInt(String userName, String phone, String createTimeStart, String createTimeEnd, Boolean deal);
 

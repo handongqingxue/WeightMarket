@@ -86,7 +86,7 @@ public class PhoneController {
 	public Map<String, Object> selectGetPriceUserList(Boolean deal) {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		List<GetPriceUser> gpuList=getPriceUserService.selectGetPriceUserList(deal);
+		List<GetPriceUser> gpuList=getPriceUserService.selectList(deal);
 		
 		if(gpuList.size()==0) {
 			jsonMap.put("message", "no");
@@ -104,7 +104,7 @@ public class PhoneController {
 	public Map<String, Object> selectProductTypeUserList(Boolean deal) {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		List<ProductTypeUser> ptuList=productTypeUserService.selectProductTypeUserList(deal);
+		List<ProductTypeUser> ptuList=productTypeUserService.selectList(deal);
 		
 		if(ptuList.size()==0) {
 			jsonMap.put("message", "no");

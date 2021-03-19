@@ -20,9 +20,9 @@ public class GetPriceUserServiceImpl implements GetPriceUserService {
 		return getPriceUserDao.add(gpu);
 	}
 
-	public List<GetPriceUser> selectGetPriceUserList(Boolean deal) {
+	public List<GetPriceUser> selectList(Boolean deal) {
 		// TODO Auto-generated method stub
-		List<GetPriceUser> gpuList = getPriceUserDao.selectGetPriceUserList(deal);
+		List<GetPriceUser> gpuList = getPriceUserDao.selectList(deal);
 		for (GetPriceUser getPriceUser : gpuList) {
 			Integer secondAgo = getPriceUser.getSecondAgo();
 			String timeAgo=null;
@@ -44,16 +44,21 @@ public class GetPriceUserServiceImpl implements GetPriceUserService {
 	}
 
 	public int selectForInt(String userName, String phone, String createTimeStart, String createTimeEnd, String pnName,
-			Boolean deal) {
+			String deal) {
 		// TODO Auto-generated method stub
 		return getPriceUserDao.selectForInt(userName,phone,createTimeStart,createTimeEnd,pnName,deal);
 	}
 
 	public List<GetPriceUser> selectForList(String userName, String phone, String createTimeStart, String createTimeEnd,
-			String pnName, Boolean deal, int page, int rows, String sort, String order) {
+			String pnName, String deal, int page, int rows, String sort, String order) {
 		// TODO Auto-generated method stub
 		return getPriceUserDao.selectForList(userName, phone, createTimeStart, createTimeEnd,
 				pnName, deal, (page-1)*rows, rows, sort, order);
+	}
+
+	public int dealById(Boolean deal, String memo, Integer id) {
+		// TODO Auto-generated method stub
+		return getPriceUserDao.dealById(deal,memo,id);
 	}
 
 }

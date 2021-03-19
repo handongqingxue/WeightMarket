@@ -20,9 +20,9 @@ public class ProductTypeUserServiceImpl implements ProductTypeUserService {
 		return productTypeUserDao.add(gpu);
 	}
 
-	public List<ProductTypeUser> selectProductTypeUserList(Boolean deal) {
+	public List<ProductTypeUser> selectList(Boolean deal) {
 		// TODO Auto-generated method stub
-		List<ProductTypeUser> ptuList = productTypeUserDao.selectProductTypeUserList(deal);
+		List<ProductTypeUser> ptuList = productTypeUserDao.selectList(deal);
 		for (ProductTypeUser productTypeUser : ptuList) {
 			Integer secondAgo = productTypeUser.getSecondAgo();
 			String timeAgo=null;

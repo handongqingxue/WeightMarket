@@ -232,6 +232,24 @@ public class BackgroundController {
 		return jsonMap;
 	}
 
+	@RequestMapping(value="/dealGPUById")
+	@ResponseBody
+	public Map<String, Object> dealGPUById(Boolean deal, String memo, Integer id) {
+
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		int count=getPriceUserService.dealById(deal,memo,id);
+		
+		if(count==0) {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "处理失败！");
+		}
+		else {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "处理成功！");
+		}
+		return jsonMap;
+	}
+
 	@RequestMapping(value="/addExampleShow")
 	@ResponseBody
 	public Map<String, Object> addExampleShow(ExampleShow es,
@@ -329,7 +347,7 @@ public class BackgroundController {
 	@RequestMapping(value="/selectGetPriceUserList")
 	@ResponseBody
 	public Map<String, Object> selectGetPriceUserList(String userName,String phone,String createTimeStart,String createTimeEnd,
-			String pnName,Boolean deal,int page,int rows,String sort,String order) {
+			String pnName,String deal,int page,int rows,String sort,String order) {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		int count=getPriceUserService.selectForInt(userName,phone,createTimeStart,createTimeEnd,pnName,deal);

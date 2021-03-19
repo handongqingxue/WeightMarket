@@ -10,7 +10,7 @@ public interface ProductTypeUserMapper {
 
 	int add(ProductTypeUser gpu);
 
-	List<ProductTypeUser> selectProductTypeUserList(@Param("deal") Boolean deal);
+	List<ProductTypeUser> selectList(@Param("deal") Boolean deal);
 
 	int selectForInt(@Param("userName") String userName, @Param("phone") String phone, @Param("createTimeStart") String createTimeStart, 
 			@Param("createTimeEnd") String createTimeEnd, @Param("deal") Boolean deal);

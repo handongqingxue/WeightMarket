@@ -27,7 +27,7 @@
  				0
  		</trim>
  	</insert>
- 	<select id="selectProductTypeUserList" resultType="com.weightMarket.entity.ProductTypeUser">
+ 	<select id="selectList" resultType="com.weightMarket.entity.ProductTypeUser">
  		select CONCAT(left(userName,1),'**') xhUserName,CONCAT(left(phone,3),'******',right(phone,2)) xhPhone,UNIX_TIMESTAMP(now())- UNIX_TIMESTAMP(createTime) secondAgo from product_type_user where 1=1
  		<if test="deal!=''&amp;deal!=null">
  			deal=#{deal}
