@@ -21,11 +21,17 @@ public class SystemInfo {
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
-	public String getContactTel() {
-		return contactTel;
+	public String getContactTel1() {
+		return contactTel1;
 	}
-	public void setContactTel(String contactTel) {
-		this.contactTel = contactTel;
+	public void setContactTel1(String contactTel1) {
+		this.contactTel1 = contactTel1;
+	}
+	public String getContactTel2() {
+		return contactTel2;
+	}
+	public void setContactTel2(String contactTel2) {
+		this.contactTel2 = contactTel2;
 	}
 	public String getContactAddress() {
 		return contactAddress;
@@ -35,6 +41,7 @@ public class SystemInfo {
 	}
 	private String yszc;//ÒþË½Õþ²ß
 	private String companyName;
-	private String contactTel;
+	private String contactTel1;
+	private String contactTel2;
 	private String contactAddress;
 }

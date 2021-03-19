@@ -157,7 +157,8 @@ function initSystemInfo(){
 			if(data.message=="ok"){
 				var systemInfo=data.systemInfo;
 				$("#gsmc_div").text("公司名称："+systemInfo.companyName);
-				$("#lxdh_div").text("联系电话："+systemInfo.contactTel+"（微信同号）");
+				$("#lxdh1_div").text("联系电话："+systemInfo.contactTel1);
+				$("#lxdh2_div").text(systemInfo.contactTel2);
 				$("#lxdz_div").text("联系地址："+systemInfo.contactAddress);
 			}
 		}
@@ -431,7 +432,7 @@ function openChatDialog(){
 	</div>
 </a>
 <div class="get_price_div" id="get_price_div">
-	<div class="title_div">青岛市福利，立即获取报价</div>
+	<div class="title_div">立即获取参考报价</div>
 	<div class="user_count_div">已有<span class="user_count_span" id="user_count_span"></span>人获取了产品价格</div>
 	<div class="userName_div">
 		<span class="userName_span">姓名</span><span class="biTian_span">*</span>
@@ -531,7 +532,8 @@ function openChatDialog(){
 	<div class="desc_div">集众人智慧，聚众人合力</div>
 	<div class="lxxx_div">
 		<div class="gsmc_div" id="gsmc_div"></div>
-		<div class="lxdh_div" id="lxdh_div"></div>
+		<div class="lxdh1_div" id="lxdh1_div"></div>
+		<div class="lxdh2_div" id="lxdh2_div"></div>
 		<div class="lxdz_div" id="lxdz_div"></div>
 	</div>
 </div>

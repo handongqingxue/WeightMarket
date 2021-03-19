@@ -41,8 +41,10 @@ function checkEditYszcInfo(){
 function checkEditCompany(){
 	if(checkCompanyName()){
 		if(checkContactAddress()){
-			if(checkContactTel()){
-				editSystemInfo("gsxx");
+			if(checkContactTel1()){
+				if(checkContactTel2()){
+					editSystemInfo("gsxx");
+				}
 			}
 		}
 	}
@@ -61,8 +63,9 @@ function editSystemInfo(flag){
 	else if(flag=="gsxx"){
 		var companyName=$("#companyName").val();
 		var contactAddress=$("#contactAddress").val();
-		var contactTel=$("#contactTel").val();
-		params={companyName:companyName,contactAddress:contactAddress,contactTel:contactTel};
+		var contactTel1=$("#contactTel1").val();
+		var contactTel2=$("#contactTel2").val();
+		params={companyName:companyName,contactAddress:contactAddress,contactTel1:contactTel1,contactTel2:contactTel2};
 	}
 	$.post(bgPath+"editSystemInfo",
 		params,
@@ -157,20 +160,40 @@ function checkContactAddress(){
 		return true;
 }
 
-function focusContactTel(){
-	var contactTel = $("#contactTel").val();
-	if(contactTel=="联系电话不能为空"){
-		$("#contactTel").val("");
-		$("#contactTel").css("color", "#555555");
+function focusContactTel1(){
+	var contactTel1 = $("#contactTel1").val();
+	if(contactTel1=="联系电话不能为空"){
+		$("#contactTel1").val("");
+		$("#contactTel1").css("color", "#555555");
 	}
 }
 
 //验证联系电话
-function checkContactTel(){
-	var contactTel = $("#contactTel").val();
-	if(contactTel==null||contactTel==""||contactTel=="联系电话不能为空"){
-		$("#contactTel").css("color","#E15748");
-    	$("#contactTel").val("联系电话不能为空");
+function checkContactTel1(){
+	var contactTel1 = $("#contactTel1").val();
+	if(contactTel1==null||contactTel1==""||contactTel1=="联系电话不能为空"){
+		$("#contactTel1").css("color","#E15748");
+    	$("#contactTel1").val("联系电话不能为空");
+    	return false;
+	}
+	else
+		return true;
+}
+
+function focusContactTel2(){
+	var contactTel2 = $("#contactTel2").val();
+	if(contactTel2=="座机不能为空"){
+		$("#contactTel2").val("");
+		$("#contactTel2").css("color", "#555555");
+	}
+}
+
+//验证座机
+function checkContactTel2(){
+	var contactTel2 = $("#contactTel2").val();
+	if(contactTel2==null||contactTel2==""||contactTel2=="座机不能为空"){
+		$("#contactTel2").css("color","#E15748");
+    	$("#contactTel2").val("座机不能为空");
     	return false;
 	}
 	else
@@ -246,7 +269,7 @@ function setFitWidthInParent(o){
 }
 .editCompany_div{
 	width:500px;
-	height:290px;
+	height:340px;
 	margin:100px auto;
 	background: #f8f8f8;
 	border-radius: 6px;
@@ -257,7 +280,7 @@ function setFitWidthInParent(o){
 	text-align: center;
 	padding-top: 20px;
 }
-.editCompany_div .gsmc_div,.editCompany_div .lxdz_div,.editCompany_div .lxdh_div{
+.editCompany_div .gsmc_div,.editCompany_div .lxdz_div,.editCompany_div .lxdh1_div,.editCompany_div .lxdh2_div{
 	width:310px;
 	margin: auto;
 	padding-top: 20px;
@@ -406,9 +429,14 @@ function setFitWidthInParent(o){
 			<span>公&nbsp;&nbsp;司&nbsp;&nbsp;&nbsp;地&nbsp;&nbsp;址</span>
 			<input type="text" id="contactAddress" value="${requestScope.systemInfo.contactAddress }" onfocus="focusContactAddress()" onblur="checkContactAddress()"/>
 		</div>
-		<div class="lxdh_div">
+		<div class="lxdh1_div">
 			<span>联&nbsp;&nbsp;系&nbsp;&nbsp;&nbsp;电&nbsp;&nbsp;话</span>
-			<input type="text" id="contactTel" value="${requestScope.systemInfo.contactTel }" onfocus="focusContactTel()" onblur="checkContactTel()"/>
+			<input type="text" id="contactTel1" value="${requestScope.systemInfo.contactTel1 }" onfocus="focusContactTel1()" onblur="checkContactTel1()"/>
+		</div>
+		<div class="lxdh2_div">
+			<span>座&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机</span>
+			<input type="text" id="contactTel2" value="${requestScope.systemInfo.contactTel2 }" onfocus="focusContactTel2()" onblur="checkContactTel2()"/>
 		</div>
 		<div class="but_div">
 			<button class="but cancel_but" onclick="openEditCompanyDialog(0)">取消</button>
@@ -448,7 +476,12 @@ function setFitWidthInParent(o){
 		</div>
 		<div class="attr_div">
 			<span class="key_span">联&nbsp;&nbsp;系&nbsp;&nbsp;&nbsp;电&nbsp;&nbsp;话：</span>
-			<span class="value_span">${requestScope.systemInfo.contactTel }</span>
+			<span class="value_span">${requestScope.systemInfo.contactTel1 }</span>
+		</div>
+		<div class="attr_div">
+			<span class="key_span">座&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机：</span>
+			<span class="value_span">${requestScope.systemInfo.contactTel2 }</span>
 		</div>
 		<div class="attr_div">
 			<span class="ec_but_span" onclick="openEditCompanyDialog(1)">修改公司信息</span>

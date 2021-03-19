@@ -15,8 +15,11 @@
  			<if test="companyName!=null">
  				companyName,
  			</if>
- 			<if test="contactTel!=null">
- 				contactTel,
+ 			<if test="contactTel1!=null">
+ 				contactTel1,
+ 			</if>
+ 			<if test="contactTel2!=null">
+ 				contactTel2,
  			</if>
  			<if test="contactAddress!=null">
  				contactAddress,
@@ -33,8 +36,11 @@
  			<if test="companyName!=null">
  				#{companyName},
  			</if>
- 			<if test="contactTel!=null">
- 				#{contactTel},
+ 			<if test="contactTel1!=null">
+ 				#{contactTel1},
+ 			</if>
+ 			<if test="contactTel2!=null">
+ 				#{contactTel2},
  			</if>
  			<if test="contactAddress!=null">
  				#{contactAddress},
@@ -53,8 +59,11 @@
 			<if test="companyName!=null">
 				companyName=#{companyName},
 			</if>
-			<if test="contactTel!=null">
-				contactTel=#{contactTel},
+			<if test="contactTel1!=null">
+				contactTel1=#{contactTel1},
+			</if>
+			<if test="contactTel2!=null">
+				contactTel2=#{contactTel2},
 			</if>
 			<if test="contactAddress!=null">
 				contactAddress=#{contactAddress},
