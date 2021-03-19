@@ -423,7 +423,7 @@ function openChatDialog(){
 	</div>
 </div>
 
-<img class="logo_img" src="<%=basePath %>resource/image/b91440230303c04be46f77ac31bbb390.jpg"/>
+<img class="logo_img" src="<%=basePath %>resource/image/b91440230303c04be46f77ac31bbb390.png"/>
 <a href="tel:15712773653">
 	<div class="tel_div">
 		<img class="tel_img" src="<%=basePath %>resource/image/202103100002.png"/>
@@ -476,9 +476,8 @@ function openChatDialog(){
 <video style="width:100%;" controls="" preload="none"  x5-playsinline="" playsinline="" webkit-playsinline="" poster="<%=basePath %>resource/image/202011240038.png">
 	<source src="<%=basePath %>resource/video/202011240037.mp4"></source>
 </video>
-<img class="sfhydyxnt_img" src="<%=basePath %>resource/image/d06cdcf93c2e042fb6fe48ae989f292c.jpg"/>
-<div style="background-color:#035CAF;width:100%;height:50px;line-height:50px;color:#fff;text-align:center;font-size:20px;">辰麒帮您解决所有问题</div>
-<img class="xtys_img" src="<%=basePath %>resource/image/96f18448915071b9fe4d49bf318b0a6e.jpg@q_80.jpg"/>
+<img class="sfhydyxnt_img" src="<%=basePath %>resource/image/d06cdcf93c2e042fb6fe48ae989f292c.png"/>
+<img class="xtys_img" src="<%=basePath %>resource/image/96f18448915071b9fe4d49bf318b0a6e.jpg@q_80.png"/>
 <div class="cpzlqq_div" id="cpzlqq_div">
 	<div class="title_div">16种系列  产品种类齐全</div>
 	<div class="ytj_div">已提交了<span class="ytj_span" id="ytj_span"></span>人</div>
