@@ -50,17 +50,18 @@ public class PhoneController {
 		int count=getPriceUserService.add(gpu);
 		if(count==0) {
 			plan.setStatus(0);
-			plan.setMsg("添加获取报价用户失败！");
+			plan.setMsg("获取报价失败！");
 			json=JsonUtil.getJsonFromObject(plan);
 		}
 		else {
 			plan.setStatus(1);
-			plan.setMsg("添加获取报价用户成功！");
+			plan.setMsg("获取报价成功，请等待客服电话回复！");
 			json=JsonUtil.getJsonFromObject(plan);
 		}
 		return json;
 	}
 	
+	/*
 	@RequestMapping(value="/addProductTypeUser",produces="plain/text; charset=UTF-8")
 	@ResponseBody
 	public String addProductTypeUser(ProductTypeUser ptu) {
@@ -80,6 +81,7 @@ public class PhoneController {
 		}
 		return json;
 	}
+	*/
 	
 	@RequestMapping(value="/selectGetPriceUserList")
 	@ResponseBody

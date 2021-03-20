@@ -13,26 +13,22 @@
 <script type="text/javascript" src="<%=basePath %>resource/js/jquery-3.3.1.js"></script>
 <script type="text/javascript">
 var path='<%=basePath %>';
-var gpuSmInterval,gpuMmtInterval,zxcykhSmInterval,zxcykhMmtInterval;
+var gpuSmInterval,gpuMmtInterval,zxcykhMmtInterval;
 //以下这块代码是防止打开其他窗口时，定时器仍在运行导致滚字幕加速。打开其他窗口时，必须暂停计时器，等切换回来再启动计时器
 //参考链接：https://www.imooc.com/article/39384?block_id=tuijian_wz
 document.onvisibilitychange=function(){   
 	if(document.visibilityState=="visible"){//启动计时器
 		gpuSmInterval=setInterval("moveGPUItemDiv()","3000");
-		zxcykhSmInterval=setInterval("moveZXCYKHItemDiv()","3000");
 	}
 	else{//停止计时器
 		clearInterval(gpuSmInterval);
-		clearInterval(zxcykhSmInterval);
 	} 
 }
 
 $(function(){
 	gpuSmInterval=setInterval("moveGPUItemDiv()","3000");
-	zxcykhSmInterval=setInterval("moveZXCYKHItemDiv()","3000");
 	initPnListDiv();
 	initGPUListDiv();
-	initZxcykhListDiv();
 	initAlzsListDiv();
 	initSystemInfo();
 	setTimeout("showNewBridge(false)","1000");//一开始隐藏百度商桥，等点击在线咨询后才显示。因为百度商桥是延迟加载的，必须等一秒后才隐藏
@@ -83,35 +79,6 @@ function initGPUListDiv(){
 			}
 			else{
 				$("#get_price_div #user_count_span").text(0);
-			}
-		}
-	,"json");
-}
-
-function initZxcykhListDiv(){
-	$.post("selectProductTypeUserList",
-		{deal:false},
-		function(result){
-			var zxcykhListDiv=$("#zxcykh_list_div");
-			zxcykhListDiv.empty();
-			if(result.message=="ok"){
-				var ptuList=result.data;
-				var ptuLength=ptuList.length;
-				$("#cpzlqq_div #ytj_span").text(ptuLength);
-				for(var i=0;i<ptuLength;i++){
-					var ptu=ptuList[i];
-					var appendStr="";
-						appendStr+="<div class=\"item_div\">";
-						appendStr+="<img class=\"call_img\" src=\""+path+"resource/image/001.png\"/>";
-						appendStr+="<div class=\"userName1_div\">"+ptu.xhUserName+"</div>";
-						appendStr+="<div class=\"phone1_div\">"+ptu.xhPhone+"</div>";
-						appendStr+="<div class=\"time_div\">"+ptu.timeAgo+"</div>";
-						appendStr+="</div>";
-					zxcykhListDiv.append(appendStr);
-				}
-			}
-			else{
-				$("#cpzlqq_div #ytj_span").text(0);
 			}
 		}
 	,"json");
@@ -176,13 +143,6 @@ function refreshGPU(){
 	gpuListDiv.append(itemDiv);
 }
 
-//将最新参与客户列表里的第一项移动到最后一项，实现列表刷新
-function refreshZXCYKH(){
-	var zxcykhListDiv=$("#zxcykh_list_div");
-	var itemDiv=zxcykhListDiv.find(".item_div").eq(0);
-	zxcykhListDiv.append(itemDiv);
-}
-
 function moveGPUItemDiv(){
 	var gpuListDiv=$("#gpu_list_div");
 	var itemDiv=gpuListDiv.find(".item_div").eq(0);
@@ -200,38 +160,12 @@ function moveGPUItemDiv(){
 	},"10");
 }
 
-//将最新参与客户列表里的某一项向上移动
-function moveZXCYKHItemDiv(){
-	var zxcykhListDiv=$("#zxcykh_list_div");
-	var itemDiv=zxcykhListDiv.find(".item_div").eq(0);
-	zxcykhMmtInterval=setInterval(function(){
-		var marginTop=itemDiv.css("margin-top");
-		marginTop=marginTop.substring(0,marginTop.length-2);
-		//console.log(marginTop);
-		marginTop--;
-		itemDiv.css("margin-top",marginTop+"px");
-		if(marginTop<=-33){
-			clearInterval(zxcykhMmtInterval);
-			refreshZXCYKH();
-			itemDiv.css("margin-top","0px");
-		}
-	},"10");
-}
-
 function checkGetPriceUserInfo(){
 	if(checkGetPriceUserName()){
 		if(checkGetPricePhone()){
 			if(checkProductNeedId()){
 				addGetPriceUser();
 			}
-		}
-	}
-}
-
-function checkProductTypeUserInfo(){
-	if(checkProductTypeUserName()){
-		if(checkProductTypePhone()){
-			addProductTypeUser();
 		}
 	}
 }
@@ -246,17 +180,6 @@ function addGetPriceUser(){
 		{userName:userName,phone:phone,pnId:pnId},
 		function(result){
 			showAGPUWarnDiv(result.status==1?true:false,result.msg);
-		}
-	,"json");
-}
-
-function addProductTypeUser(){
-	var userName=$("#cpzlqq_div #userName").val();
-	var phone=$("#cpzlqq_div #phone").val();
-	$.post("addProductTypeUser",
-		{userName:userName,phone:phone},
-		function(result){
-			showAPTUWarnDiv(result.status==1?true:false,result.msg);
 		}
 	,"json");
 }
@@ -290,26 +213,6 @@ function checkProductNeedId(){
 	else{
 		return true;
 	}
-}
-
-function checkProductTypeUserName(){
-	var userName=$("#cpzlqq_div #userName").val();
-	if(userName==null||userName==""){
-		showUserNameWarnDiv(true);
-    	return false;
-	}
-	else
-		return true;
-}
-
-function checkProductTypePhone(){
-	var phone=$("#cpzlqq_div #phone").val();
-	if(phone==null||phone==""){
-		showPhoneWarnDiv(true);
-    	return false;
-	}
-	else
-		return true;
 }
 
 function showUserNameWarnDiv(show){
@@ -351,18 +254,6 @@ function showAGPUWarnDiv(show,msg){
 	else{
 		$("#agpu_warn_bg_div").css("display","none");
 		$("#agpu_warn_div").text("");
-	}
-}
-
-function showAPTUWarnDiv(show,msg){
-	if(show){
-		$("#aptu_warn_bg_div").css("display","block");
-		$("#aptu_warn_div").text(msg);
-		setTimeout("showAPTUWarnDiv(false)","3000");
-	}
-	else{
-		$("#aptu_warn_bg_div").css("display","none");
-		$("#aptu_warn_div").text("");
 	}
 }
 
@@ -411,9 +302,6 @@ function openChatDialog(){
 <div class="agpu_warn_bg_div" id="agpu_warn_bg_div">
 	<div class="warn_div agpu_warn_div" id="agpu_warn_div"></div>
 </div>
-<div class="aptu_warn_bg_div" id="aptu_warn_bg_div">
-	<div class="warn_div aptu_warn_div" id="aptu_warn_div"></div>
-</div>
 
 <div class="xxsqyszc_bg_div" id="xxsqyszc_bg_div">
 	<div class="xxsqyszc_div">
@@ -449,12 +337,6 @@ function openChatDialog(){
 	<div class="product_need_div">
 		<div class="pn_text_span">产品需求<span class="biTian_span">*</span></div>
 		<div class="list_div" id="pn_list_div">
-			<!-- 
-			<div class="item_div">
-				<input type="radio" name="pn" id="pn_rad1"/>
-				<span>无人值守地磅称重系统</span>
-			</div>
-			 -->
 		</div>
 		<div class="zdsrlsxx_div">
 			<input type="checkbox"/>
@@ -465,71 +347,20 @@ function openChatDialog(){
 	</div>
 </div>
 <div class="gpu_list_div" id="gpu_list_div">
-	<!-- 
-	<div class="item_div">
-		<img class="call_img" src="<%=basePath %>resource/image/001.png"/>
-		<div class="userName1_div">李**</div>
-		<div class="phone1_div">136******26</div>
-		<div class="time_div">1天前</div>
-	</div>
-	 -->
 </div>
 <video style="width:100%;" controls="" preload="none"  x5-playsinline="" playsinline="" webkit-playsinline="" poster="<%=basePath %>resource/image/202011240038.png">
 	<source src="<%=basePath %>resource/video/202011240037.mp4"></source>
 </video>
 <img class="sfhydyxnt_img" src="<%=basePath %>resource/image/d06cdcf93c2e042fb6fe48ae989f292c.png"/>
 <img class="xtys_img" src="<%=basePath %>resource/image/96f18448915071b9fe4d49bf318b0a6e.jpg@q_80.png"/>
-<div class="cpzlqq_div" id="cpzlqq_div">
-	<div class="title_div">16种系列  产品种类齐全</div>
-	<div class="ytj_div">已提交了<span class="ytj_span" id="ytj_span"></span>人</div>
-	<div class="userName_div">
-		<input class="userName_inp" id="userName" placeholder="请输入姓名(必填)"/>
-	</div>
-	<div class="phone_div">
-		<input class="phone_inp" id="phone" placeholder="请输入手机号(必填)"/>
-	</div>
-	<div class="submit_but_div" onclick="checkProductTypeUserInfo()">提交</div>
-</div>
-<div class="zxcykh_div">
-	<div class="title_div">最新参与客户</div>
-	<div class="list_div" id="zxcykh_list_div">
-		<!-- 
-		<div class="item_div">
-			<img class="call_img" src="<%=basePath %>resource/image/001.png"/>
-			<div class="userName1_div">李**</div>
-			<div class="phone1_div">136******26</div>
-			<div class="time_div">1天前</div>
-		</div>
-		 -->
-	</div>
-</div>
 <div class="alzs_div">
 	<div class="title_div">案例展示</div>
 	<div class="desc_div">集众人智慧，聚众人合力</div>
 	<div class="list_div" id="alzs_list_div">
-		<!-- 
-		<div class="item_div">
-			<img class="alzs_img" src="<%=basePath %>resource/image/202103100003.png"/>
-			<div class="text_div">索通发展有限公司</div>
-		</div>
-		<div class="item_div qiLi_div">
-			<img class="alzs_img" src="<%=basePath %>resource/image/202103100004.png"/>
-			<div class="text_div">齐力碳素有限公司</div>
-		</div>
-		<div class="item_div chuangXin_div">
-			<img class="alzs_img" src="<%=basePath %>resource/image/202103100005.png"/>
-			<div class="text_div">创新碳素有限公司</div>
-		</div>
-		<div class="item_div qiTa_div">
-			<img class="alzs_img" src="<%=basePath %>resource/image/202103100006.png"/>
-			<div class="text_div">其他</div>
-		</div>
-		 -->
 	</div>
 </div>
 <div class="lxwm_div">
 	<div class="title_div">联系我们</div>
-	<div class="desc_div">集众人智慧，聚众人合力</div>
 	<div class="lxxx_div">
 		<div class="gsmc_div" id="gsmc_div"></div>
 		<div class="lxdh1_div" id="lxdh1_div"></div>
@@ -538,6 +369,7 @@ function openChatDialog(){
 	</div>
 </div>
 <div class="qdhlkjyxgs_div">青岛华凌科技有限公司</div>
+<div style="width: 100%;height: 45px;"></div>
 <div class="zxzx_div" onclick="openChatDialog()">在线咨询</div>
 </body>
 </html>
