@@ -14,4 +14,8 @@ public interface ProductNeedService {
 
 	List<ProductNeed> selectList();
 
+	ProductNeed getById(String id);
+
+	int edit(ProductNeed pn);
+
 }

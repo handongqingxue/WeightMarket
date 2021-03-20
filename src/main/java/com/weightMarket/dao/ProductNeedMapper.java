@@ -16,4 +16,8 @@ public interface ProductNeedMapper {
 
 	List<ProductNeed> selectList();
 
+	ProductNeed getById(@Param("id") String id);
+
+	int edit(ProductNeed pn);
+
 }

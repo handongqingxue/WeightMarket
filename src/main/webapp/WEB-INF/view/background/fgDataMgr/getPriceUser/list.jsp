@@ -202,8 +202,6 @@ function initTab1(){
             }},
 			{field:"memo",title:"备注",width:300},
             {field:"id",title:"操作",width:110,formatter:function(value,row){
-            	//var str="<a onclick=\"checkById('1','"+value+"')\">通过</a>&nbsp;&nbsp;"
-            		//+"<a onclick=\"checkById('2','"+value+"')\">不通过</a>";
             	var str="<a onclick=\"dealGPUTabRow()\">处理</a>";
             	return str;
             }}
@@ -215,7 +213,6 @@ function initTab1(){
 				data.total=0;
 			}
 			
-			//$(".panel-header").css("background","linear-gradient(to bottom,#F4F4F4 0,#F4F4F4 20%)");
 			$(".panel-header .panel-title").css("color","#000");
 			$(".panel-header .panel-title").css("font-size","15px");
 			$(".panel-header .panel-title").css("padding-left","10px");

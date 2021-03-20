@@ -130,10 +130,30 @@ public class BackgroundController {
 		return MODULE_NAME+"/fgDataMgr/productNeed/add";
 	}
 	
+	@RequestMapping(value="/fgDataMgr/productNeed/edit")
+	public String goFgDataMgrProductNeedEdit(HttpServletRequest request) {
+
+		String id = request.getParameter("id");
+		ProductNeed productNeed=productNeedService.getById(id);
+		request.setAttribute("productNeed", productNeed);
+		
+		return MODULE_NAME+"/fgDataMgr/productNeed/edit";
+	}
+	
 	@RequestMapping(value="/fgDataMgr/productNeed/list")
 	public String goFgDataMgrProductNeedList() {
 		
 		return MODULE_NAME+"/fgDataMgr/productNeed/list";
+	}
+	
+	@RequestMapping(value="/fgDataMgr/productNeed/detail")
+	public String goFgDataMgrProductNeedDetail(HttpServletRequest request) {
+
+		String id = request.getParameter("id");
+		ProductNeed productNeed=productNeedService.getById(id);
+		request.setAttribute("productNeed", productNeed);
+		
+		return MODULE_NAME+"/fgDataMgr/productNeed/detail";
 	}
 	
 	@RequestMapping(value="/fgDataMgr/getPriceUser/list")
@@ -226,6 +246,24 @@ public class BackgroundController {
 		else {
 			jsonMap.put("message", "ok");
 			jsonMap.put("info", "添加需求成功！");
+		}
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/editProdNeed")
+	@ResponseBody
+	public Map<String, Object> editProdNeed(ProductNeed pn) {
+
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		int count=productNeedService.edit(pn);
+		
+		if(count==0) {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "编辑需求失败！");
+		}
+		else {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "编辑需求成功！");
 		}
 		return jsonMap;
 	}
@@ -369,5 +407,13 @@ public class BackgroundController {
 		jsonMap.put("rows", esList);
 			
 		return jsonMap;
+	}
+	
+	@RequestMapping(value="/exit")
+	public String exit(HttpServletRequest request) {
+		System.out.println("退出接口");
+		Subject currentUser = SecurityUtils.getSubject();
+	    currentUser.logout();    
+		return "/background/login";
 	}
 }

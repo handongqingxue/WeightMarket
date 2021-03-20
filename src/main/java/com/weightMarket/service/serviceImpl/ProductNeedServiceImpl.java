@@ -35,4 +35,14 @@ public class ProductNeedServiceImpl implements ProductNeedService {
 		return productNeedDao.selectList();
 	}
 
+	public ProductNeed getById(String id) {
+		// TODO Auto-generated method stub
+		return productNeedDao.getById(id);
+	}
+
+	public int edit(ProductNeed pn) {
+		// TODO Auto-generated method stub
+		return productNeedDao.edit(pn);
+	}
+
 }

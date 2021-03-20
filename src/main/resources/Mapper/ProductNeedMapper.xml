@@ -46,4 +46,22 @@
 	<select id="selectList" resultType="com.weightMarket.entity.ProductNeed">
 		select * from product_need order by sort
 	</select>
+ 	<select id="getById" resultType="com.weightMarket.entity.ProductNeed">
+ 		select * from product_need where id=#{id}
+ 	</select>
+ 	<update id="edit" parameterType="com.weightMarket.entity.ProductNeed">
+ 		update product_need set
+		<trim suffixOverrides=",">
+			<if test="name!=null">
+				name=#{name},
+			</if>
+			<if test="describe!=null">
+				`describe`=#{describe},
+			</if>
+			<if test="sort!=null">
+				sort=#{sort},
+			</if>
+		</trim>
+		where id=#{id}
+ 	</update>
 </mapper>

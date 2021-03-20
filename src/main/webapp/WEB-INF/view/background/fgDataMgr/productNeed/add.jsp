@@ -101,7 +101,7 @@ function addProductNeed(){
 		function(data){
 			if(data.message=="ok"){
 				alert(data.info);
-				history.go(-1);
+				location.href=bgPath+"fgDataMgr/productNeed/list";
 			}
 			else{
 				alert(data.info);

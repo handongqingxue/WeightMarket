@@ -362,8 +362,7 @@ function setFitWidthInParent(o){
 
 .gsxx_div{
 	height:370px;
-	margin-top:20px;
-	margin-left: 238px;
+	margin:20px 0 40px 238px;
 	padding-top:40px;
 	padding-left:40px;
 	background-color:#FAFDFE;

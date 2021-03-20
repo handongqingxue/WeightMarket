@@ -75,7 +75,6 @@
 <body>
 	<div class="layui-header ">
 		<div class="layui-logo">
-			<img alt="" src="<%=basePath%>resource/image/qrcode.png"/>
 			<a>智能称重营销后台</a>
 		</div>
 		<ul class="layui-nav layui-layout-right">

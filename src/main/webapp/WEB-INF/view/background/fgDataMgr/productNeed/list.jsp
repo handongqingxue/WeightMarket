@@ -49,20 +49,22 @@ function initTab1(){
 		pageSize:10,
 		columns:[[
 			{field:"name",title:"需求名称",width:200},
+			{field:"describe",title:"描述",width:200},
             {field:"createTime",title:"创建时间",width:150},
+            {field:"sort",title:"排序",width:100},
             {field:"id",title:"操作",width:110,formatter:function(value,row){
-            	//var str="<a href=\"detail?id="+value+"\">详情</a>";
-            	//return str;
+            	var str="<a href=\"edit?id="+value+"\">编辑</a>&nbsp;&nbsp;";
+        			str+="<a href=\"detail?id="+value+"\">详情</a>";
+            	return str;
             }}
 	    ]],
         onLoadSuccess:function(data){
 			if(data.total==0){
 				$(this).datagrid("appendRow",{name:"<div style=\"text-align:center;\">暂无信息<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"name",colspan:3});
+				$(this).datagrid("mergeCells",{index:0,field:"name",colspan:5});
 				data.total=0;
 			}
 			
-			//$(".panel-header").css("background","linear-gradient(to bottom,#F4F4F4 0,#F4F4F4 20%)");
 			$(".panel-header .panel-title").css("color","#000");
 			$(".panel-header .panel-title").css("font-size","15px");
 			$(".panel-header .panel-title").css("padding-left","10px");
