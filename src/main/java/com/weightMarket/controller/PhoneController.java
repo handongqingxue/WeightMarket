@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +23,6 @@ public class PhoneController {
 	@Autowired
 	private GetPriceUserService getPriceUserService;
 	@Autowired
-	private ProductTypeUserService productTypeUserService;
-	@Autowired
 	private ProductNeedService productNeedService;
 	@Autowired
 	private SystemInfoService systemInfoService;
@@ -33,6 +33,15 @@ public class PhoneController {
 	public String goIndex() {
 		
 		return "/phone/index";
+	}
+
+	@RequestMapping(value="/goSecretPolicy")
+	public String goSecretPolicy(HttpServletRequest request) {
+		
+		String yszc = systemInfoService.get().getYszc();
+		request.setAttribute("yszc", yszc);
+		
+		return "/phone/secretPolicy";
 	}
 
 	@RequestMapping(value="/goOpenTaoBaoApp")
@@ -61,28 +70,6 @@ public class PhoneController {
 		return json;
 	}
 	
-	/*
-	@RequestMapping(value="/addProductTypeUser",produces="plain/text; charset=UTF-8")
-	@ResponseBody
-	public String addProductTypeUser(ProductTypeUser ptu) {
-		
-		PlanResult plan=new PlanResult();
-		String json;
-		int count=productTypeUserService.add(ptu);
-		if(count==0) {
-			plan.setStatus(0);
-			plan.setMsg("参与失败！");
-			json=JsonUtil.getJsonFromObject(plan);
-		}
-		else {
-			plan.setStatus(1);
-			plan.setMsg("参与成功！");
-			json=JsonUtil.getJsonFromObject(plan);
-		}
-		return json;
-	}
-	*/
-	
 	@RequestMapping(value="/selectGetPriceUserList")
 	@ResponseBody
 	public Map<String, Object> selectGetPriceUserList(Boolean deal) {
@@ -97,24 +84,6 @@ public class PhoneController {
 		else {
 			jsonMap.put("message", "ok");
 			jsonMap.put("data", gpuList);
-		}
-		return jsonMap;
-	}
-	
-	@RequestMapping(value="/selectProductTypeUserList")
-	@ResponseBody
-	public Map<String, Object> selectProductTypeUserList(Boolean deal) {
-		
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		List<ProductTypeUser> ptuList=productTypeUserService.selectList(deal);
-		
-		if(ptuList.size()==0) {
-			jsonMap.put("message", "no");
-			jsonMap.put("info", "暂无参与用户");
-		}
-		else {
-			jsonMap.put("message", "ok");
-			jsonMap.put("data", ptuList);
 		}
 		return jsonMap;
 	}

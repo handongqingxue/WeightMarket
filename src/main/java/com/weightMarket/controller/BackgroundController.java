@@ -39,8 +39,6 @@ public class BackgroundController {
 	@Autowired
 	private GetPriceUserService getPriceUserService;
 	@Autowired
-	private ProductTypeUserService productTypeUserService;
-	@Autowired
 	private ExampleShowService exampleShowService;
 	@Autowired
 	private SystemInfoService systemInfoService;
@@ -355,21 +353,6 @@ public class BackgroundController {
 
 		jsonMap.put("total", count);
 		jsonMap.put("rows", gpuList);
-			
-		return jsonMap;
-	}
-	
-	@RequestMapping(value="/selectProductTypeUserList")
-	@ResponseBody
-	public Map<String, Object> selectProductTypeUserList(String userName,String phone,String createTimeStart,String createTimeEnd,
-			Boolean deal,int page,int rows,String sort,String order) {
-		
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		int count=productTypeUserService.selectForInt(userName,phone,createTimeStart,createTimeEnd,deal);
-		List<ProductTypeUser> ptuList=productTypeUserService.selectForList(userName,phone,createTimeStart,createTimeEnd,deal, page, rows, sort, order);
-
-		jsonMap.put("total", count);
-		jsonMap.put("rows", ptuList);
 			
 		return jsonMap;
 	}

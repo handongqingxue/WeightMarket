@@ -179,13 +179,6 @@
 							&nbsp;&nbsp;&nbsp;案例展示
 						</a>
 					</li>
-					<div class="line_div"></div>
-					<li class="layui-nav-item">
-						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
-						<a href="<%=basePath%>background/fgDataMgr/productTypeUser/list">
-							&nbsp;&nbsp;&nbsp;产品种类客户
-						</a>
-					</li>
 				</div>
 			</ul>
 		</div>
