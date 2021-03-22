@@ -285,7 +285,7 @@ function openChatDialog(){
 	}
 }
 </script>
-<title>营销页面</title>
+<title>辰麒智能门禁称重系统</title>
 <style>
 
 </style>
