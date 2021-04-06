@@ -26,6 +26,7 @@
 			<value>
 				/background/login/captcha=anon
 				/phone/**=anon
+				/phone/chenQi/**=anon
 				/background/login=anon
 				/resource/**=anon
 				/**=authc
