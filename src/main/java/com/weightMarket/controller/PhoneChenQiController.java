@@ -146,4 +146,19 @@ public class PhoneChenQiController {
 			e.printStackTrace();
 		}
 	}
+
+	@RequestMapping(value="/getSecretPolicy")
+	@ResponseBody
+	public void getSecretPolicy(HttpServletResponse response) {
+		
+		String yszc = systemInfoService.get().getYszc().replaceAll("\"", "\\\\\\\\\\\\\"");
+		String jsonpCallback="jsonpCallback(\"{\\\"yszc\\\":\\\""+yszc+"\\\"}\")";
+
+        try {
+			response.getWriter().print(jsonpCallback);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
